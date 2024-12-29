@@ -8,7 +8,7 @@ export const VERIFICATION_EMAIL_TEMPLATE = (username, verificationToken) => `
   </head>
   <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background: linear-gradient(to right, #1e3a8a, #2563eb); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-      <img src="https://github.com/mayeDave/TechConnect/blob/main/techConnectLogo.jpg?raw=true" alt="Tech Connect Logo" style="width: 150px; margin-bottom: 20px; border-radius: 10px;">
+      <img src="blob:https://imgur.com/1e322311-fab0-49f5-b316-2ef395303825" alt="Tech Connect Logo" style="width: 150px; margin-bottom: 20px; border-radius: 10px;">
       <h1 style="color: white; margin: 0; font-size: 28px;">Verify Your Email</h1>
     </div>
     <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -39,7 +39,7 @@ export const WELCOME_EMAIL_TEMPLATE = (username, profileUrl) => `
   </head>
   <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background: linear-gradient(to right, #1e3a8a, #2563eb); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-      <img src="https://github.com/mayeDave/TechConnect/blob/main/techConnectLogo.jpg?raw=true" alt="Tech Connect Logo" style="width: 150px; margin-bottom: 20px; border-radius: 10px;">
+      <img src="blob:https://imgur.com/1e322311-fab0-49f5-b316-2ef395303825" alt="Tech Connect Logo" style="width: 150px; margin-bottom: 20px; border-radius: 10px;">
       <h1 style="color: white; margin: 0; font-size: 28px;">Welcome to Tech Connect!</h1>
     </div>
     <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -74,7 +74,7 @@ export const WELCOME_EMAIL_TEMPLATE = (username, profileUrl) => `
   </head>
   <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background: linear-gradient(to right, #1e3a8a, #2563eb); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-      <img src="https://github.com/mayeDave/TechConnect/blob/main/techConnectLogo.jpg?raw=true" alt="Tech Connect Logo" style="width: 150px; margin-bottom: 20px; border-radius: 10px;">
+      <img src="blob:https://imgur.com/1e322311-fab0-49f5-b316-2ef395303825" alt="Tech Connect Logo" style="width: 150px; margin-bottom: 20px; border-radius: 10px;">
       <h1 style="color: white; margin: 0; font-size: 28px;">Password Reset Successful</h1>
     </div>
     <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -113,7 +113,7 @@ export const WELCOME_EMAIL_TEMPLATE = (username, profileUrl) => `
   </head>
   <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
     <div style="background: linear-gradient(to right, #1e3a8a, #2563eb); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-      <img src="https://github.com/mayeDave/TechConnect/blob/main/techConnectLogo.jpg?raw=true" alt="Tech Connect Logo" style="width: 150px; margin-bottom: 20px; border-radius: 10px;">
+      <img src="blob:https://imgur.com/1e322311-fab0-49f5-b316-2ef395303825" alt="Tech Connect Logo" style="width: 150px; margin-bottom: 20px; border-radius: 10px;">
       <h1 style="color: white; margin: 0; font-size: 28px;">Password Reset</h1>
     </div>
     <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">

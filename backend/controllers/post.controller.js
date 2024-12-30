@@ -1,6 +1,7 @@
 import Post from "../models/post.model.js";
 import Notification from "../models/notification.model.js";
 import cloudinary from "../config/cloudinary.js";
+import { sendCommentNotificationEmail } from "../nodemailer/email.js";
 
 export const getFeedPosts = async (req, res) => {
     try {
@@ -121,11 +122,42 @@ export const createComment = async (req, res) => {
                 console.error("Error in sending comment notification:", error);
             }
         }
-        
 
         res.status(200).json(post);
     } catch (error) {
         console.error("Error in createComment controller:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
+export const likePost = async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const post = await Post.findById(postId);
+        const userId = req.user._id;
+
+        if (post.likes.includes(userId)) {
+            // if the user already liked the post, used to unlike the post
+            post.likes = post.likes.filter((id) => id.toString() !== userId.toString());
+        } else {
+            // if the user has not liked the post, used to like the post
+            post.likes.push(userId);
+            // create a notification if the user who liked is not the author of the post
+            if (post.author.toString() !== userId.toString()) {
+                const newNotification = new Notification({
+                    recipient: post.author,
+                    type: "like",
+                    relatedUser: userId,
+                    relatedPost: postId,
+                });
+                await newNotification.save();
+            }
+        }
+        await post.save();
+
+        res.status(200).json(post);
+    } catch (error) {
+        console.error("Error in likePost controller:", error);
         res.status(500).json({ message: "Server error" });
     }
 };

@@ -177,6 +177,45 @@ export const COMMENT_NOTIFICATION_TEMPLATE = (recipientName, commenterName, post
 </html>
 `;
 
+export const CONNECTION_ACCEPTED_TEMPLATE = (senderName, recipientName, profileUrl) => `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connection Request Accepted</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+  <div style="background: linear-gradient(to right, #1e3a8a, #120934); padding: 40px; text-align: center; border-radius: 10px 10px 0 0;">
+    <img src="https://i.imgur.com/QCNEFSm.jpeg" alt="UnLinked Logo" style="width: 120px; margin-bottom: 20px; border-radius: 10px;">
+    <h1 style="color: white; margin: 0; font-size: 26px; font-weight: bold;">Connection Accepted!</h1>
+  </div>
+  <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+    <p style="font-size: 18px; color: #1e3a8a;"><strong>Hello ${senderName},</strong></p>
+    <p>Great news! <strong>${recipientName}</strong> has accepted your connection request on UnLinked.</p>
+    <div style="background-color: #f3f6f8; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #1e3a8a;">
+      <p style="font-size: 16px; margin: 0; color: #120934;"><strong>What's next?</strong></p>
+      <ul style="padding-left: 20px; color: #333;">
+        <li>Check out ${recipientName}'s full profile.</li>
+        <li>Send a message to start a conversation.</li>
+        <li>Explore mutual connections and interests.</li>
+      </ul>
+    </div>
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="${profileUrl}" style="background-color: #1e3a8a; color: white; padding: 14px 28px; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 16px; transition: background-color 0.3s;">View ${recipientName}'s Profile</a>
+    </div>
+    <p style="color: #333;">Expanding your professional network opens up new opportunities. Keep connecting!</p>
+    <p>Best regards,<br>The UnLinked Team</p>
+  </div>
+  <div style="text-align: center; margin-top: 20px; color: #6b7280; font-size: 0.85em;">
+    <p>This is an automated message. Please do not reply to this email.</p>
+    <p>© 2024 UnLinked. All rights reserved.</p>
+  </div>
+</body>
+</html>
+`;
+
+
 
 
   

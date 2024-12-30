@@ -3,7 +3,8 @@ import {
     PASSWORD_RESET_SUCCESS_TEMPLATE,
     VERIFICATION_EMAIL_TEMPLATE,
     WELCOME_EMAIL_TEMPLATE,
-    COMMENT_NOTIFICATION_TEMPLATE
+    COMMENT_NOTIFICATION_TEMPLATE,
+    CONNECTION_ACCEPTED_TEMPLATE
 } from "./emailTemplates.js";
 import transporter from "./nodemailer.config.js";
 export const sendVerificationEmail = async (email, username, verificationToken) => {
@@ -98,4 +99,18 @@ export const sendCommentNotificationEmail = async (recipientEmail, recipientName
 
         throw new Error(`Error sending password reset success email: ${error}`);
     }
+};
+
+export const sendConnectionAcceptedEmail = async (senderEmail, senderName, recipientName, profileUrl) => {
+	
+
+	try {
+		const response = await mailtrapClient.send({
+			from: sender,
+			to: senderEmail,
+			subject: `${recipientName} accepted your connection request`,
+			html: CONNECTION_ACCEPTED_TEMPLATE(senderName, recipientName, profileUrl),
+			category: "connection_accepted",
+		});
+	} catch (error) {}
 };

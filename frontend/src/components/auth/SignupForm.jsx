@@ -5,19 +5,26 @@ import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import PasswordStrengthMeter from "../PasswordStrengthMeter.jsx";
 import { Loader, Lock, User, Mail, UserPlus, Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Input from "../Input";
 
 const SignupForm = () => {
+
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const query = useQueryClient();
+
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+
 
   const queryClient = useQueryClient();
 
@@ -27,20 +34,27 @@ const SignupForm = () => {
       return res.data;
     },
     onSuccess: () => {
-      toast.success("Account created successfully");
+      toast.success("Verify your email");
+      queryClient.invalidateQueries({queryKey: ["authUser"]});
     },
-    onError: () => {
-      toast.error("Something went wrong");
+    onError: (err) => {
+      toast.error(err.response.data.message);
     },
   });
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    signupMutation({ name, username, email, password });
+    try {
+       signupMutation({ name, username, email, password });
+       navigate("/verify-email");
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <form className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4" onSubmit={handleSignup}>
       <Input
         icon={User}
         type="text"

@@ -8,7 +8,7 @@ const SignupPage = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="max-w-md py-2 px-10 mx-auto w-full bg-gray-800 bg-opacity-40 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl 
+      className="max-w-md mx-auto w-full px-6 py-3 bg-gray-800 bg-opacity-40 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl 
 			overflow-hidden"
     >
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -35,7 +35,7 @@ const SignupPage = () => {
             to="/login"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-[#79caed] bg[#101b30] bg-opacity-40 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#79caed]"
           >
-            Sign in
+            Login
           </Link>
         </div>
       </div>

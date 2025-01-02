@@ -15,7 +15,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
-  const query = useQueryClient();
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
 
@@ -26,7 +26,6 @@ const SignupForm = () => {
 
 
 
-  const queryClient = useQueryClient();
 
   const { mutate: signupMutation, isLoading } = useMutation({
     mutationFn: async (data) => {
@@ -54,7 +53,7 @@ const SignupForm = () => {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSignup}>
+    <form className="flex flex-col gap-4 px-4" onSubmit={handleSignup}>
       <Input
         icon={User}
         type="text"

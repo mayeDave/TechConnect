@@ -179,10 +179,17 @@ export const forgotPassword = async (req, res) => {
 export const resetPassword = async (req, res) => {
     try {
         const { token } = req.params;
-        const { password } = req.body;
-        if(!token || !password) {
+        const { password, confirmPassword } = req.body;
+        if(!token || !password || !confirmPassword) {
             return res.status(400).json({ message: "All fields are required" });
         }
+
+        //check if password and confirm password match
+        if(password !== confirmPassword) {
+            return res.status(400).json({ message: "Passwords do not match" });
+        }
+
+        //find user by token and ensure it is not expired
 
         const user = await User.findOne({ 
             resetToken: token, 

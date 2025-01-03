@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { axiosInstance } from "../../lib/axios";
 import toast from "react-hot-toast";
@@ -13,14 +13,15 @@ const EmailVerificationForm = () => {
   const queryClient = useQueryClient();
 
   const { mutate: verifyEmailMutation, isLoading } = useMutation({
-    mutationFn: (data) => axiosInstance.post("/auth/verify-email", data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["authUser"] });
-    },
-    onError: (err) => {
-      toast.error(err.response.data.message || "Something went wrong");
-    },
-  });
+	mutationFn: (data) => axiosInstance.post("/auth/verify-email", data),
+	onSuccess: () => {
+	  queryClient.invalidateQueries({ queryKey: ["authUser"] });
+	  navigate("/login");
+	},
+	onError: (err) => {
+	  toast.error(err.response.data.message || "Something went wrong");
+	},
+  })
 
   const handleChange = (index, value) => {
     const newCode = [...code];
@@ -53,15 +54,9 @@ const EmailVerificationForm = () => {
 		}
 	};
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = (e) => {
 		e.preventDefault();
-		const verificationCode = code.join("");
-		try {
-			verifyEmailMutation({ verificationCode });
-      // check if the verification code matches the one in the database
-		} catch (error) {
-			console.log(error);
-		}
+		verifyEmailMutation({ code: code.join("") });
 	};
 
   // Auto submit when all fields are filled

@@ -16,25 +16,23 @@ const ResetPasswordForm = () => {
   const navigate = useNavigate();
 
   const { mutate: resetPasswordMutation, isLoading } = useMutation({
-    mutationFn: (data) => axiosInstance.post("/auth/reset-password/:token", data),
+    mutationFn: async (data) => {
+      const res = await axiosInstance.post(`/auth/reset-password/${token}`, data);
+      return res.data;
+    },
     onSuccess: () => {
       toast.success("Password reset successfully");
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      navigate("/login");
     },
     onError: (err) => {
-      toast.error(err.response.data.message || "Something went wrong");
+      toast.error(err.response.data.message);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-        alert("Passwords do not match");
-        return;
-    }
-
-    resetPasswordMutation({ password, token });
-    navigate("/login");
+    resetPasswordMutation({ token, password, confirmPassword });
   };
 
   return (

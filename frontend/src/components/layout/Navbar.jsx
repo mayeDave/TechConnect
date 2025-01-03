@@ -30,39 +30,52 @@ const Navbar = () => {
 	const unreadConnectionRequestsCount = connectionRequests?.data?.length;
 
 	return (
-		<nav className='bg-[#79caed] shadow-md sticky top-0 z-10'>
-			<div className='max-w-7xl mx-auto px-4'>
-				<div className='flex justify-between items-center py-3'>
-					<div className='flex items-center space-x-4'>
-						<Link to='/'>
-							<img className='h-8 rounded' src='/small-logo.png' alt='LinkedIn' />
-						</Link>
-					</div>
-					<div className='flex items-center gap-2 md:gap-6'>
-						{authUser ? (
+		<nav className="bg-gradient-to-r from-[#111b30] via-[#1e3a8a] to-[#111b30] shadow-lg sticky top-0 z-10">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between items-center py-3">
+          {/* Logo Section */}
+          <div className="flex items-center space-x-4">
+            <Link to="/" className="flex items-center space-x-2">
+              <p className="text-white font-bold md:text-2xl ">Tech Connect</p>
+              <img className="h-20 shadow-md hidden md:block" src="/techConnectLogo.jpg" alt="Tech-Connect Logo" />
+            </Link>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex items-center gap-4 md:gap-6">
+						{authUser? (
 							<>
-								<Link to={"/"} className='text-neutral flex flex-col items-center'>
+
+								{/* Personalized greeting
+								<span className="text-white text-xl font-bold ">
+                 					 Hello, {authUser?.username}!
+               					 </span> */}
+
+								<Link to={"/"} className="text-white flex flex-col items-center hover:text-[#00d9ff] transition duration-200"
+								>
 									<Home size={20} />
-									<span className='text-xs hidden md:block'>Home</span>
+									<span className='text-x hidden md:block'>Home</span>
 								</Link>
-								<Link to='/network' className='text-neutral flex flex-col items-center relative'>
+								<Link to='/network' className="text-white flex flex-col items-center hover:text-[#00d9ff] transition duration-200"
+								>
 									<Users size={20} />
-									<span className='text-xs hidden md:block'>My Network</span>
+									<span className='text-x hidden md:block'>My Network</span>
 									{unreadConnectionRequestsCount > 0 && (
 										<span
-											className='absolute -top-1 -right-1 md:right-4 bg-blue-500 text-white text-xs 
+											className='absolute -top-1 -right-1 md:right-4 bg-blue-500 text-white text-x 
 										rounded-full size-3 md:size-4 flex items-center justify-center'
 										>
 											{unreadConnectionRequestsCount}
 										</span>
 									)}
 								</Link>
-								<Link to='/notifications' className='text-neutral flex flex-col items-center relative'>
+								<Link to='/notifications' className="text-white flex flex-col items-center hover:text-[#00d9ff] transition duration-200"
+								>
 									<Bell size={20} />
-									<span className='text-xs hidden md:block'>Notifications</span>
+									<span className='text-x hidden md:block'>Notifications</span>
 									{unreadNotificationCount > 0 && (
 										<span
-											className='absolute -top-1 -right-1 md:right-4 bg-blue-500 text-white text-xs 
+											className='absolute -top-1 -right-1 md:right-4 bg-blue-500 text-white text-x 
 										rounded-full size-3 md:size-4 flex items-center justify-center'
 										>
 											{unreadNotificationCount}
@@ -71,25 +84,26 @@ const Navbar = () => {
 								</Link>
 								<Link
 									to={`/profile/${authUser.username}`}
-									className='text-neutral flex flex-col items-center'
+									className="text-white flex flex-col items-center hover:text-[#00d9ff] transition duration-200"
+
 								>
 									<User size={20} />
-									<span className='text-xs hidden md:block'>Me</span>
+									<span className='text-x hidden md:block'>Me</span>
 								</Link>
 								<button
-									className='flex items-center space-x-1 text-sm text-gray-600 hover:text-gray-800'
+									className="flex items-center space-x-1 text-sm text-white hover:text-[#00d9ff] transition duration-200"
 									onClick={() => logout()}
 								>
-									<LogOut size={20} />
+									<LogOut size={24} />
 									<span className='hidden md:inline'>Logout</span>
 								</button>
 							</>
 						) : (
 							<>
-								<Link to='/login' className='btn btn-ghost'>
+								<Link to='/login' className="btn btn-ghost border border-white text-white hover:bg-[#1e3a8a] transition">
 									Sign In
 								</Link>
-								<Link to='/signup' className='btn btn-primary'>
+								<Link to='/signup' className="btn btn-primary bg-[#1e3a8a] text-white px-4 py-2 rounded-full hover:bg-[#00d9ff] transition">
 									Join now
 								</Link>
 							</>

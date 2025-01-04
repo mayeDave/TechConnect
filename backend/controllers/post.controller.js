@@ -5,7 +5,7 @@ import { sendCommentNotificationEmail } from "../nodemailer/email.js";
 
 export const getFeedPosts = async (req, res) => {
     try {
-        const posts = await Post.find({author:{$in: req.user.connections}})
+        const posts = await Post.find({author:{$in: [...req.user.connections, req.user._id]}})
         .populate("author", "name username profilePicture, headline")
         .populate("likes", "name username profilePicture")
         .populate("comments.user", "name username profilePicture")
@@ -96,7 +96,7 @@ export const createComment = async (req, res) => {
         .populate("author", "name username profilePicture headline");
 
         // create a notification if the user who commented is not the author of the post
-        if (post.author.toString() !== req.user._id.toString()) {
+        if (post.author._id.toString() !== req.user._id.toString()) {
             const newNotification = new Notification({
                 recipient: post.author,
                 type: "comment",

@@ -35,6 +35,7 @@ const SignupForm = () => {
     onSuccess: () => {
       toast.success("Verify your email");
       queryClient.invalidateQueries({queryKey: ["authUser"]});
+      navigate("/verify-email");
     },
     onError: (err) => {
       toast.error(err.response.data.message);
@@ -45,7 +46,7 @@ const SignupForm = () => {
     e.preventDefault();
     try {
        signupMutation({ name, username, email, password });
-       navigate("/verify-email");
+       
 
     } catch (error) {
       console.error(error);

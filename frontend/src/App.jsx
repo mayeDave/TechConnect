@@ -59,7 +59,7 @@ function App() {
       <Routes>
         <Route path="/" element={protectedRoute({ children: <HomePage /> })} />
         <Route path="/signup" element={redirectAuthenticatedUser({ children: <SignupPage /> })} />
-        <Route path="/verify-email" element={redirectAuthenticatedUser({ children: <EmailVerificationPage /> })} />
+        <Route path='/verify-email' element={<EmailVerificationPage />} />
         <Route path="/forgot-password" element={redirectAuthenticatedUser({ children: <ForgotPasswordPage /> })} />
         <Route path="/reset-password/:token" element={redirectAuthenticatedUser({ children: <ResetPasswordPage /> })} />
         <Route path="/login" element={redirectAuthenticatedUser({ children: <LoginPage /> })} />

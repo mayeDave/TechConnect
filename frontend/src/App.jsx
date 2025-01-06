@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import Layout from "./components/layout/Layout"
 import HomePage from "./pages/HomePage"
 import NotificationsPage from "./pages/NotificationsPage"
+import NetworkPage from "./pages/NetworkPage"
 import LoginPage from "./pages/auth/LoginPage"
 import SignupPage from "./pages/auth/SignupPage"
 import EmailVerificationPage from "./pages/auth/EmailVerificationPage"
@@ -10,6 +11,7 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage"
 import toast, { Toaster } from "react-hot-toast"
 import { axiosInstance } from "./lib/axios"
 import { useQuery } from "@tanstack/react-query"
+import { Network } from "lucide-react"
 
 function App() {
   // new Promise((resolve) => setTimeout(resolve, 3000));
@@ -66,6 +68,7 @@ function App() {
         <Route path="/login" element={redirectAuthenticatedUser({ children: <LoginPage /> })} />
         <Route path="/" element={protectedRoute({ children: <HomePage /> })} />
         <Route path="/notifications" element={protectedRoute({ children: <NotificationsPage /> })} />
+        <Route path="/network" element={protectedRoute({ children: <NetworkPage /> })} />
       </Routes>
       <Toaster />
     </Layout>

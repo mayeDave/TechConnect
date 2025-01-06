@@ -8,7 +8,7 @@ export const getSuggestedConnections = async (req, res) => {
         // find users who are not already connected and not our own profile
 
         const suggestedUsers = await User.find({
-            _id: { $ne: currentUser._id, $nin: currentUser.connections 
+            _id: { $ne: req.user._id, $nin: currentUser.connections 
             } // exclude current user and users already connected
         }).select("name username profilePicture headline")
         .limit(3); //limit suggests the number of connections you want displayed
@@ -50,27 +50,27 @@ export const updateProfile = async (req, res) => {
             "education",
             ];
 
-        const updatedFields = {};
+        const updatedData = {};
             
         for (const field of allowedFields) {
             if (req.body[field]) {
-                updatedFields[field] = req.body[field];
+                updatedData[field] = req.body[field];
             }
         }
 
         // todo: check for the profile picture and banner image
         if(req.body.profilePicture) {
             const result = await cloudinary.uploader.upload(req.body.profilePicture);
-            updatedFields.profilePicture = result.secure_url;
+            updatedData.profilePicture = result.secure_url;
         }
 
         if(req.body.bannerImg) {
             const result = await cloudinary.uploader.upload(req.body.bannerImg);
-            updatedFields.bannerImg = result.secure_url;
+            updatedData.bannerImg = result.secure_url;
         }
 
 
-        const user = await User.findByIdAndUpdate(req.user._id, { $set: updatedFields }, { new: true }).select("-password");
+        const user = await User.findByIdAndUpdate(req.user._id, { $set: updatedData }, { new: true }).select("-password");
         res.status(200).json(user);
 
     } catch (error) {

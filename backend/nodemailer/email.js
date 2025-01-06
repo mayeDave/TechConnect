@@ -84,11 +84,13 @@ export const sendResetSuccessEmail = async (email, username) => {
 };
 
 export const sendCommentNotificationEmail = async (recipientEmail, recipientName, commenterName, postUrl, commentContent) => {
+
+    
     try {
         const response = await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: recipientEmail,
-            subject: "Password Reset Successful",
+            subject: "New Comment on Your Post",
             html: COMMENT_NOTIFICATION_TEMPLATE(recipientName, commenterName, postUrl, commentContent),
             
         });
@@ -103,7 +105,6 @@ export const sendCommentNotificationEmail = async (recipientEmail, recipientName
 
 export const sendConnectionAcceptedEmail = async (senderEmail, senderName, recipientName, profileUrl) => {
 	
-
 	try {
 		const response = await mailtrapClient.send({
 			from: sender,

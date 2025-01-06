@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import Layout from "./components/layout/Layout"
 import HomePage from "./pages/HomePage"
+import NotificationsPage from "./pages/NotificationsPage"
 import LoginPage from "./pages/auth/LoginPage"
 import SignupPage from "./pages/auth/SignupPage"
 import EmailVerificationPage from "./pages/auth/EmailVerificationPage"
@@ -57,12 +58,14 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={protectedRoute({ children: <HomePage /> })} />
+        
         <Route path="/signup" element={redirectAuthenticatedUser({ children: <SignupPage /> })} />
         <Route path='/verify-email' element={<EmailVerificationPage />} />
         <Route path="/forgot-password" element={redirectAuthenticatedUser({ children: <ForgotPasswordPage /> })} />
         <Route path="/reset-password/:token" element={redirectAuthenticatedUser({ children: <ResetPasswordPage /> })} />
         <Route path="/login" element={redirectAuthenticatedUser({ children: <LoginPage /> })} />
+        <Route path="/" element={protectedRoute({ children: <HomePage /> })} />
+        <Route path="/notifications" element={protectedRoute({ children: <NotificationsPage /> })} />
       </Routes>
       <Toaster />
     </Layout>

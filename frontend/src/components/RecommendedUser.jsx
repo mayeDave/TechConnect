@@ -3,6 +3,7 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { Check, Clock, UserCheck, UserPlus, X } from "lucide-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const RecommendedUser = ({ user }) => {
 	const queryClient = useQueryClient();
@@ -119,7 +120,7 @@ const RecommendedUser = ({ user }) => {
 		<div className="flex items-center justify-between mb-4 p-1 bg-gradient-to-b from-[#243b6e] to-[#1e3a8a] rounded-lg shadow-lg">
 			{/* User Info */}
 			<Link to={`/profile/${user.username}`} className="flex items-center flex-grow">
-				<img
+				<LazyLoadImage
 					src={user.profilePicture || "/avatar.png"}
 					alt={user.name}
 					className="w-12 h-12 rounded-full mr-3 shadow-md border border-gray-300"

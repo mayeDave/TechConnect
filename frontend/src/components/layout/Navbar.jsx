@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 import { Link } from "react-router-dom";
 import { Bell, Home, LogOut, User, Users } from "lucide-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Navbar = () => {
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
@@ -37,7 +38,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-2">
               <p className="text-white font-bold md:text-2xl ">Tech Connect</p>
-              <img className="h-20 shadow-md hidden md:block" src="/techConnectLogo.jpg" alt="Tech-Connect Logo" />
+              <LazyLoadImage className="h-20 shadow-md hidden md:block" src="/techConnectLogo.jpg" alt="Tech-Connect Logo" />
             </Link>
           </div>
 

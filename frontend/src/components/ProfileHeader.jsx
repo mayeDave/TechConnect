@@ -4,6 +4,7 @@ import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
 
 import { Camera, Clock, MapPin, UserCheck, UserPlus, X } from "lucide-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -172,7 +173,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 
 			<div className='p-4'>
 				<div className='relative -mt-20 mb-4'>
-					<img
+					<LazyLoadImage
 						className='w-32 h-32 rounded-full mx-auto object-cover'
 						src={editedData.profilePicture || userData.profilePicture || "/avatar.png"}
 						alt={userData.name}

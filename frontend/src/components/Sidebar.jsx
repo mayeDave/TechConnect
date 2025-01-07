@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Home, UserPlus, Bell } from "lucide-react";
 
 export default function Sidebar({ user }) {
@@ -13,7 +14,7 @@ export default function Sidebar({ user }) {
 					}}
 				/>
 				<Link to={`/profile/${user.username}`}>
-					<img
+					<LazyLoadImage
 						src={user.profilePicture || "/avatar.png"}
 						alt={user.name}
 						className="w-24 h-24 rounded-full border-4 border-white shadow-md absolute left-1/2 transform -translate-x-1/2 top-10"

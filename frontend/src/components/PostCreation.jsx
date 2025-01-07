@@ -3,6 +3,7 @@ import { useState } from "react";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { Image, Loader } from "lucide-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const PostCreation = ({ user }) => {
 	const [content, setContent] = useState("");
@@ -68,7 +69,7 @@ const PostCreation = ({ user }) => {
         <div className="bg-gradient-to-b from-[#243b6e] to-[#1e3a8a] rounded-lg shadow-lg mb-6 p-6">
         {/* User Avatar and Input Section */}
         <div className="flex space-x-4 items-start">
-            <img
+            <LazyLoadImage
                 src={user.profilePicture || "/avatar.png"}
                 alt={user.name}
                 className="w-12 h-12 rounded-full shadow-md"
@@ -84,7 +85,7 @@ const PostCreation = ({ user }) => {
         {/* Image Preview Section */}
         {imagePreview && (
             <div className="mt-4">
-                <img
+                <LazyLoadImage
                     src={imagePreview}
                     alt="Selected"
                     className="w-full h-auto rounded-lg border border-gray-600 shadow-sm"

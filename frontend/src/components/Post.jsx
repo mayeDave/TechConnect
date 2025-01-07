@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import { Loader, MessageCircle, Send, Share2, ThumbsUp, Trash2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
-
 import PostAction from "./PostAction";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Post = ({ post }) => {
 	const { postId } = useParams();
@@ -94,7 +94,7 @@ const Post = ({ post }) => {
 			{/* Author Info */}
 			<div className="flex items-center">
 				<Link to={`/profile/${post?.author?.username}`}>
-					<img
+					<LazyLoadImage
 						src={post.author.profilePicture || "/avatar.png"}
 						alt={post.author.name}
 						className="w-10 h-10 rounded-full shadow-md mr-3"
@@ -124,7 +124,7 @@ const Post = ({ post }) => {
 		{/* Post Content */}
 		<p className="text-white mb-4">{post.content}</p>
 		{post.image && (
-			<img
+			<LazyLoadImage
 				src={post.image}
 				alt="Post content"
 				className="rounded-lg w-full mb-4 shadow-md border border-gray-700"
@@ -163,7 +163,7 @@ const Post = ({ post }) => {
 						key={comment._id}
 						className="bg-gray-800 p-3 rounded-lg flex items-start shadow-sm"
 					>
-						<img
+						<LazyLoadImage
 							src={comment.user.profilePicture || "/avatar.png"}
 							alt={comment.user.name}
 							className="w-8 h-8 rounded-full mr-3"

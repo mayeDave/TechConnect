@@ -149,6 +149,7 @@ const Post = ({ post }) => {
 				onClick={() => setShowComments(!showComments)}
 			/>
 			<PostAction icon={<Share2 size={18} className="hover:text-gray-300" />} text="Share" />
+			{/* todo: send post link to friends or connections */}
 		</div>
 	</div>
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios.js";
+import { useAuthStore } from "../../store/useAuthStore";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import PasswordStrengthMeter from "../PasswordStrengthMeter.jsx";
@@ -15,37 +15,20 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
-  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
+  const { signup, error, isLoading } = useAuthStore();
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-
-
-
-  const { mutate: signupMutation, isLoading } = useMutation({
-    mutationFn: async (data) => {
-      const res = await axiosInstance.post("/auth/signup", data);
-      return res.data;
-    },
-    onSuccess: () => {
-      toast.success("Verify your email");
-      queryClient.invalidateQueries({queryKey: ["authUser"]});
-      navigate("/verify-email");
-    },
-    onError: (err) => {
-      toast.error(err.response.data.message);
-    },
-  });
-
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-       signupMutation({ name, username, email, password });
+      await signup(name, username, email, password);
+      // navigate("/verify-email");
        
 
     } catch (error) {
@@ -96,7 +79,7 @@ const SignupForm = () => {
       />
       <span
         onClick={togglePasswordVisibility}
-        className="absolute right-14 top-1/2 transform translate-y-[-200%] cursor-pointer text-[#79caed]"
+        className="absolute right-14 top-1/2 transform translate-y-[-200%] cursor-pointer text-base"
       >
         {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
       </span>
@@ -107,7 +90,7 @@ const SignupForm = () => {
 
 
 <motion.button
-						className='mt-5 w-full py-3 px-4 bg-gradient-to-r from-[#1e3a8a] to-[#10495f] text-white 
+						className='mt-5 w-full py-3 px-4 bg-primary/30
 						font-bold rounded-lg shadow-lg hover:from-[#79caed]
 						hover:to-[#10495f] focus:outline-none focus:ring-2 focus:ring-[#79caed] focus:ring-offset-2
 						 focus:ring-offset-gray-900 transition duration-200'

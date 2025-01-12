@@ -1,54 +1,51 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../lib/axios";
-
+import { useProfileStore } from "../store/useProfileStore";
+import { useAuthStore } from "../store/useAuthStore";
 import ProfileHeader from "../components/ProfileHeader";
 import AboutSection from "../components/AboutSection";
 import ExperienceSection from "../components/ExperienceSection";
 import EducationSection from "../components/EducationSection";
 import SkillsSection from "../components/SkillsSection";
-import toast from "react-hot-toast";
+import { use } from "react";
 
 const ProfilePage = () => {
-	const { username } = useParams();
-	const queryClient = useQueryClient();
+  const { username } = useParams();
 
-	const { data: authUser, isLoading } = useQuery({
-		queryKey: ["authUser"],
-	});
+  const {
+    userProfile,
+    isLoading,
+    fetchUserProfile,
+    updateProfile,
+  } = useProfileStore();
 
-	const { data: userProfile, isLoading: isUserProfileLoading } = useQuery({
-		queryKey: ["userProfile", username],
-		queryFn: () => axiosInstance.get(`/users/${username}`),
-	});
+  const { authUser } = useAuthStore();
 
-	const { mutate: updateProfile } = useMutation({
-		mutationFn: async (updatedData) => {
-			await axiosInstance.put("/users/profile", updatedData);
-		},
-		onSuccess: () => {
-			toast.success("Profile updated successfully");
-			queryClient.invalidateQueries(["userProfile", username]);
-		},
-	});
+useEffect(() => {
+	fetchUserProfile(username);
+  }, [username, fetchUserProfile]);
 
-	if (isLoading || isUserProfileLoading) return null;
+  if (isLoading) return <p>Loading...</p>;
 
-	const isOwnProfile = authUser.username === userProfile.data.username;
-	const userData = isOwnProfile ? authUser : userProfile.data;
+  if (!userProfile) return <p>Profile not found</p>;
 
-	const handleSave = (updatedData) => {
-		updateProfile(updatedData);
-	};
+  
+  const isOwnProfile = authUser.username === userProfile.username;
+  const userData = isOwnProfile ? authUser : userProfile;
 
-	return (
-		<div className='max-w-4xl mx-auto p-4'>
-			<ProfileHeader userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
-			<AboutSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
-			<ExperienceSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
-			<EducationSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
-			<SkillsSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
-		</div>
-	);
+  const handleSave = (updatedData) => {
+    updateProfile(updatedData);
+  };
+
+  return (
+    <div className='max-w-4xl mx-auto p-4'>
+      <ProfileHeader userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
+      <AboutSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
+      <ExperienceSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
+      <EducationSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
+      <SkillsSection userData={userData} isOwnProfile={isOwnProfile} onSave={handleSave} />
+    </div>
+  );
 };
+
 export default ProfilePage;

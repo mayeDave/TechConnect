@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuthStore } from "../../store/useAuthStore";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -10,18 +10,9 @@ const EmailVerificationForm = () => {
   const [ code, setCode ] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
-  const { mutate: verifyEmailMutation, isLoading } = useMutation({
-	mutationFn: (data) => axiosInstance.post("/auth/verify-email", data),
-	onSuccess: () => {
-	  queryClient.invalidateQueries({ queryKey: ["authUser"] });
-	  navigate("/login");
-	},
-	onError: (err) => {
-	  toast.error(err.response.data.message || "Something went wrong");
-	},
-  })
+  const { error, isLoading, verifyEmail } = useAuthStore();
+  
 
   const handleChange = (index, value) => {
     const newCode = [...code];
@@ -54,9 +45,17 @@ const EmailVerificationForm = () => {
 		}
 	};
 
- const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		verifyEmailMutation({ code: code.join("") });
+		const verificationCode = code.join("");
+		try {
+			await verifyEmail(verificationCode);
+			navigate("/");
+			toast.success("Email verified successfully");
+		} catch (error) {
+			console.log(error);
+		}
+	
 	};
 
   // Auto submit when all fields are filled

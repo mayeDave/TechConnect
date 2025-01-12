@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../../store/useAuthStore";
 import { motion } from "framer-motion";
 import { axiosInstance } from "../../lib/axios";
 import toast from "react-hot-toast";
@@ -10,21 +10,12 @@ import Input from "../Input";
 const ForgotPasswordForm = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const queryClient = useQueryClient();
 
-  const { mutate: forgotPasswordMutation, isLoading } = useMutation({
-    mutationFn: (data) => axiosInstance.post("/auth/forgot-password", data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["authUser"] });
-    },
-    onError: (err) => {
-      toast.error(err.response.data.message || "Something went wrong");
-    },
-  });
+  const { isLoading, forgotPassword } = useAuthStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    forgotPasswordMutation({ email });
+    forgotPassword({ email });
     setIsSubmitted(true);
   };
 

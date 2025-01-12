@@ -1,5 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../lib/axios";
+import { useEffect } from "react";
+import { useAuthStore } from "../store/useAuthStore";
+import useNetworkStore from "../store/useNetworkStore";
+import {usePostStore} from "../store/usePostStore";
 import Sidebar from "../components/Sidebar";
 import PostCreation from "../components/PostCreation";
 import Post from "../components/Post";
@@ -7,25 +9,16 @@ import { Users } from "lucide-react";
 import RecommendedUser from "../components/RecommendedUser";
 
 const HomePage = () => {
-  const { data: authUser } = useQuery({ queryKey: ["authUser"] });
+  const { authUser } = useAuthStore(); // Importing from authStore
 
-  const { data: recommendedUsers } = useQuery({
-		queryKey: ["recommendedUsers"],
-		queryFn: async () => {
-			const res = await axiosInstance.get("/users/suggestions");
-			return res.data;
-		},
-	});
+  const { recommendedUsers, fetchRecommendedUsers } = useNetworkStore(); // Importing from networkStore
 
-  const { data: posts } = useQuery({
-		queryKey: ["posts"],
-		queryFn: async () => {
-			const res = await axiosInstance.get("/posts");
-			return res.data;
-		},
-	});
-  console.log("recommendedUsers", recommendedUsers)
-	console.log("posts", posts);
+  const { posts, fetchPosts } = usePostStore(); // Placeholder for post store integration
+
+  useEffect(() => {
+	fetchPosts();
+	fetchRecommendedUsers();
+  }, [fetchPosts, fetchRecommendedUsers]);
 
   return (
     <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
@@ -50,6 +43,7 @@ const HomePage = () => {
 					</div>
 				)}
 			</div>
+
       {recommendedUsers?.length > 0 && (
 				<div className='col-span-1 lg:col-span-1 hidden lg:block'>
 					<div className='bg-[#1e3a8a]  rounded-lg shadow p-4'>

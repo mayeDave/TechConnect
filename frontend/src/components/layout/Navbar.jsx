@@ -1,43 +1,39 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../../lib/axios";
+import { useAuthStore } from "../../store/useAuthStore";
+import { useNotificationStore } from "../../store/useNotificationStore";
+import useNetworkStore from "../../store/useNetworkStore";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Bell, Home, LogOut, User, Users } from "lucide-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Navbar = () => {
-	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
-	const queryClient = useQueryClient();
+	const { authUser, logout } = useAuthStore();
 
-	const { data: notifications } = useQuery({
-		queryKey: ["notifications"],
-		queryFn: async () => axiosInstance.get("/notifications"),
-		enabled: !!authUser,
-	});
 
-	const { data: connectionRequests } = useQuery({
-		queryKey: ["connectionRequests"],
-		queryFn: async () => axiosInstance.get("/connections/requests"),
-		enabled: !!authUser,
-	});
+	const { notifications, getNotifications } = useNotificationStore();
+	const { connectionRequests, fetchConnectionRequests } = useNetworkStore();
 
-	const { mutate: logout } = useMutation({
-		mutationFn: () => axiosInstance.post("/auth/logout"),
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["authUser"] });
-		},
-	});
+	useEffect(() => {
+		getNotifications();
+		fetchConnectionRequests();
+	}, [ getNotifications, fetchConnectionRequests ]);
 
-	const unreadNotificationCount = notifications?.data.filter((notif) => !notif.read).length;
-	const unreadConnectionRequestsCount = connectionRequests?.data?.length;
+	
+
+	const unreadNotificationCount = notifications?.filter(
+		(notification) => !notification.read
+	).length;
+	const unreadConnectionRequestsCount = connectionRequests?.length;
 
 	return (
-		<nav className="bg-gradient-to-r from-[#111b30] via-[#1e3a8a] to-[#111b30] shadow-lg sticky top-0 z-10">
+		<nav className="bg-base-100 border-b border-base-300 sticky w-full top-0 z-40 
+    backdrop-blur-lg bg-base-100/80">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-3">
           {/* Logo Section */}
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex items-center space-x-2">
-              <p className="text-white font-bold md:text-2xl ">Tech Connect</p>
+              <p className="font-bold md:text-2xl ">Tech Connect</p>
               <LazyLoadImage className="h-20 shadow-md hidden md:block" src="/techConnectLogo.jpg" alt="Tech-Connect Logo" />
             </Link>
           </div>

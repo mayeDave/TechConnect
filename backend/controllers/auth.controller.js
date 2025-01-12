@@ -38,7 +38,7 @@ export const signup = async (req, res) => {
             verificationTokenExpireAt: new Date(Date.now() + 24 * 60 * 60 * 1000) //24 hours
         });
 
-        await user.save();
+        // await user.save();
 
         // jwt token
         generateTokenAndSetCookie(res, user._id);

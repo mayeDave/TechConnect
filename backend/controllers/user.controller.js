@@ -8,7 +8,9 @@ export const getSuggestedConnections = async (req, res) => {
         // find users who are not already connected and not our own profile
 
         const suggestedUsers = await User.find({
-            _id: { $ne: req.user._id, $nin: currentUser.connections 
+            _id: {
+                 $ne: req.user._id,
+                 $nin: currentUser.connections
             } // exclude current user and users already connected
         }).select("name username profilePicture headline")
         .limit(3); //limit suggests the number of connections you want displayed

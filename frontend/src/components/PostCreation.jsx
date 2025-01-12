@@ -1,44 +1,27 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { axiosInstance } from "../lib/axios";
-import toast from "react-hot-toast";
 import { Image, Loader } from "lucide-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { usePostStore } from "../store/usePostStore";
 
 const PostCreation = ({ user }) => {
-	const [content, setContent] = useState("");
-	const [image, setImage] = useState(null);
+    const { createPost, isLoading } = usePostStore();
+
+    const [content, setContent] = useState("");
+    const [image, setImage] = useState(null);
 	const [imagePreview, setImagePreview] = useState(null);
 
-	const queryClient = useQueryClient();
 
-	const { mutate: createPostMutation, isPending } = useMutation({
-		mutationFn: async (postData) => {
-			const res = await axiosInstance.post("/posts/create", postData, {
-				headers: { "Content-Type": "application/json" },
-			});
-			return res.data;
-		},
-		onSuccess: () => {
-			resetForm();
-			toast.success("Post created successfully");
-			queryClient.invalidateQueries({ queryKey: ["posts"] });
-		},
-		onError: (err) => {
-			toast.error(err.response.data.message || "Failed to create post");
-		},
-	});
-
-	const handlePostCreation = async () => {
-		try {
-			const postData = { content };
-			if (image) postData.image = await readFileAsDataURL(image);
-
-			createPostMutation(postData);
-		} catch (error) {
-			console.error("Error in handlePostCreation:", error);
-		}
-	};
+	const handlePostCreation = async() => {
+        try {
+            const postData = { content };
+            if (image) postData.image = await readFileAsDataURL(image);
+            
+            createPost({ ...postData });
+            resetForm();
+        } catch (error) {
+            console.error("Error in handlePostCreation:", error);
+        }
+    };
 
 	const resetForm = () => {
 		setContent("");
@@ -112,14 +95,14 @@ const PostCreation = ({ user }) => {
             {/* Share Button */}
             <button
                 className={`rounded-lg px-5 py-2 font-semibold transition-colors duration-200 ${
-                    isPending
+                    isLoading
                         ? "bg-gray-500 text-gray-300 cursor-not-allowed"
                         : "bg-[#00d9ff] text-white hover:bg-[#00b4cc]"
                 }`}
                 onClick={handlePostCreation}
-                disabled={isPending}
+                disabled={isLoading}
             >
-                {isPending ? <Loader className="size-5 animate-spin" /> : "Share"}
+                {isLoading ? <Loader className="size-5 animate-spin" /> : "Share"}
             </button>
         </div>
     </div>

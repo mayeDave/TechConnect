@@ -5,74 +5,75 @@ import NotificationsPage from "./pages/NotificationsPage"
 import NetworkPage from "./pages/NetworkPage"
 import PostPage from "./pages/PostPage"
 import ProfilePage from "./pages/ProfilePage"
+// import ChatPage from "./pages/ChatPage"
 import LoginPage from "./pages/auth/LoginPage"
 import SignupPage from "./pages/auth/SignupPage"
 import EmailVerificationPage from "./pages/auth/EmailVerificationPage"
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage"
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage"
-import toast, { Toaster } from "react-hot-toast"
-import { axiosInstance } from "./lib/axios"
-import { useQuery } from "@tanstack/react-query"
-// import { Network } from "lucide-react"
+import SettingsPage from "./pages/SettingsPage"
+import  { Toaster } from "react-hot-toast"
+import { useEffect } from "react"
+import { useAuthStore } from "./store/useAuthStore"
+
+// protect routes that require authentication
+const ProtectedRoute = ({ children }) => {
+	const { isAuthenticated, authUser } = useAuthStore();
+
+  console.log(authUser);
+
+	if (!isAuthenticated) {
+		return <Navigate to='/login' replace />;
+	}
+
+	if (!authUser?.isVerified) {
+		return <Navigate to='/verify-email' replace />;
+	}
+
+	return children;
+};
+
+// redirect authenticated users to the home page
+const RedirectedAuthenticatedUser = ({ children }) => {
+	const { isAuthenticated, authUser } = useAuthStore();
+  console.log(authUser);
+
+	if (isAuthenticated && authUser?.isVerified) {
+		return <Navigate to='/' replace />;
+	}
+
+  
+
+	return children;
+};
 
 function App() {
-  // new Promise((resolve) => setTimeout(resolve, 3000));
-  const { data: authUser, isLoading } = useQuery({
-    queryKey: ["authUser"],
-    queryFn: async () => {
-      try {
-        const res = await axiosInstance.get("/auth/me");
-        
-        return res.data;
-      }  catch (err) {
-				if (err.response && err.response.status === 401) {
-					return null;
-				}
-				toast.error(err.response.data.message || "Something went wrong");
-			}
-    }
-  });
-
-  const protectedRoute = ({ children }) => {
-    if (!authUser) { 
-      return <Navigate to="/login" replace />;
-    }
-
-   if (!authUser.isVerified) {
-    return <Navigate to="/verify-email" replace />;
-  }
-
-    return children;
-  };
-
-  // redirect authenticated user to the home page
-  const redirectAuthenticatedUser = ({ children }) => {
-    if (authUser && authUser.isVerified) {
-      return <Navigate to="/" replace />;
-    }
-
-    return children;
-  }
-
-
- 
   
-  if (isLoading) return null;
+  const { isCheckingAuth, checkAuth } = useAuthStore();
+
+	useEffect(() => {
+		checkAuth();
+	}, [checkAuth]);
+
+	if (isCheckingAuth) return null;
 
   return (
     <Layout>
       <Routes>
         
-        <Route path="/signup" element={redirectAuthenticatedUser({ children: <SignupPage /> })} />
-        <Route path='/verify-email' element={<EmailVerificationPage />} />
-        <Route path="/forgot-password" element={redirectAuthenticatedUser({ children: <ForgotPasswordPage /> })} />
-        <Route path="/reset-password/:token" element={redirectAuthenticatedUser({ children: <ResetPasswordPage /> })} />
-        <Route path="/login" element={redirectAuthenticatedUser({ children: <LoginPage /> })} />
-        <Route path="/" element={protectedRoute({ children: <HomePage /> })} />
-        <Route path="/notifications" element={protectedRoute({ children: <NotificationsPage /> })} />
-        <Route path="/network" element={protectedRoute({ children: <NetworkPage /> })} />
-        <Route path="/post/:postId" element={protectedRoute({ children: <PostPage /> })} />
-        <Route path="/profile/:username" element={protectedRoute({ children: <ProfilePage /> })} />
+        <Route path="/signup" element={<RedirectedAuthenticatedUser><SignupPage /></RedirectedAuthenticatedUser>} />
+        <Route path='/verify-email' element={<RedirectedAuthenticatedUser><EmailVerificationPage /></RedirectedAuthenticatedUser>} />
+        <Route path="/forgot-password" element={<RedirectedAuthenticatedUser><ForgotPasswordPage /></RedirectedAuthenticatedUser>} />
+        <Route path="/reset-password/:token" element={<RedirectedAuthenticatedUser><ResetPasswordPage /></RedirectedAuthenticatedUser>} />
+        <Route path="/login" element={<RedirectedAuthenticatedUser><LoginPage /></RedirectedAuthenticatedUser>} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+        <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
+        <Route path="/network" element={<ProtectedRoute><NetworkPage /></ProtectedRoute>} />
+        <Route path="/post/:postId" element={<ProtectedRoute><PostPage /></ProtectedRoute>} />
+        <Route path="/profile/:username" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} /> 
+        {/* <Route path="/chat" element={protectedRoute({ children: <ChatPage /> })} /> */}
+
       </Routes>
       <Toaster />
     </Layout>

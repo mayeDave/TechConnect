@@ -12,10 +12,12 @@ import notificationRoutes from "./routes/notification.route.js";
 import connectionRoutes from "./routes/connection.route.js";
 import messageRoutes from "./routes/message.route.js";
 
+import { app, server } from "./config/socket.js";
+
 
 dotenv.config();
 
-const app = express();
+
 const PORT = process.env.PORT || 6060;
 
 app.use(express.json({ limit: "5mb"})); //parse json request body
@@ -37,7 +39,7 @@ app.use("/api/v1/messages", messageRoutes);
 
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
     connectDB();
 });

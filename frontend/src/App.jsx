@@ -5,7 +5,7 @@ import NotificationsPage from "./pages/NotificationsPage"
 import NetworkPage from "./pages/NetworkPage"
 import PostPage from "./pages/PostPage"
 import ProfilePage from "./pages/ProfilePage"
-// import ChatPage from "./pages/ChatPage"
+import ChatPage from "./pages/ChatPage"
 import LoginPage from "./pages/auth/LoginPage"
 import SignupPage from "./pages/auth/SignupPage"
 import EmailVerificationPage from "./pages/auth/EmailVerificationPage"
@@ -49,7 +49,9 @@ const RedirectedAuthenticatedUser = ({ children }) => {
 
 function App() {
   
-  const { isCheckingAuth, checkAuth } = useAuthStore();
+  const { isCheckingAuth, checkAuth, onlineUsers } = useAuthStore();
+
+  console.log(onlineUsers);
 
 	useEffect(() => {
 		checkAuth();
@@ -72,7 +74,7 @@ function App() {
         <Route path="/network" element={<ProtectedRoute><NetworkPage /></ProtectedRoute>} />
         <Route path="/post/:postId" element={<ProtectedRoute><PostPage /></ProtectedRoute>} />
         <Route path="/profile/:username" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} /> 
-        {/* <Route path="/chat" element={protectedRoute({ children: <ChatPage /> })} /> */}
+        <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
 
       </Routes>
       <Toaster />

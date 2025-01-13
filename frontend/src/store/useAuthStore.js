@@ -17,10 +17,10 @@ const BASE_URL = "http://localhost:6060";
         socket: null,
 
         checkAuth: async () => {
-            set({ isCheckingAuth: true });
+            set({ isCheckingAuth: true, isAuthenticated: false, error: null });
             try {
                 const res = await axiosInstance.get("/auth/me");
-                set({ authUser: res.data, isAuthenticated: true, isCheckingAuth: false });
+                set({ authUser: res.data.user, isAuthenticated: true, isCheckingAuth: false });
                 get().connectSocket();
             } catch (error) {
                 set({ error: null, isCheckingAuth: false, isAuthenticated: false });
@@ -30,7 +30,7 @@ const BASE_URL = "http://localhost:6060";
             set({ isLoading: true });
             try {
                 const res = await axiosInstance.post("/auth/signup", { name, username, email, password });
-                set({ authUser: res.data, isAuthenticated: true, isLoading: false });
+                set({ authUser: res.data.user, isAuthenticated: true, isLoading: false });
                 get().connectSocket();
             } catch (error) {
                 set({ error: error.response.data.message, isLoading: false });
@@ -38,17 +38,18 @@ const BASE_URL = "http://localhost:6060";
             }
         },
         login: async ( username, password ) => {
-            set({ isLoading: true });
+            set({ isLoading: true, error: null });
             try {
                 const res = await axiosInstance.post("/auth/login", { username, password });
-                set({ authUser: res.data, isAuthenticated: true, isLoading: false, error: null });
+                set({ authUser: res.data.user, isAuthenticated: true, isLoading: false, error: null });
                 get().connectSocket();
             } catch (error) {
-                set({ error: error.response.data.message, isLoading: false });
+                set({ error: error.response?.data?.message, isLoading: false });
                 throw error
             }
         },
         logout: async () => {
+            set({ isLoading: true, error: null });
             try {
                 await axiosInstance.post("/auth/logout");
                 set({ authUser: null, isAuthenticated: false, error: null, isLoading: false });
@@ -59,27 +60,29 @@ const BASE_URL = "http://localhost:6060";
             }
         },
         verifyEmail: async (code) => {
-            set({isLoading: true});
+            set({isLoading: true, error: null});
             try{
                 const res = await axiosInstance.post("/auth/verify-email", {code});
-                set({ authUser: res.data, isAuthenticated: true, isLoading: false });
+                set({ authUser: res.data.user, isAuthenticated: true, isLoading: false });
                 get().connectSocket();
 			    return res.data;
             } catch (error) {
                 set({ error: null, isCheckingAuth: false, isAuthenticated: false });
+                throw error;
             }
         },
         forgotPassword: async (email) => {
-            set({ isLoading: true});
+            set({ isLoading: true, error: null });
             try {
                 const res = await axiosInstance.post("/auth/forgot-password", {email});
                 set({ message: res.data.message, isLoading: false });
             } catch (error) {
                 set({ error: error.response.data.message, isLoading: false });
+                throw error;
             }
         },
         resetPassword: async (token, password) => {
-            set({ isLoading: true});
+            set({ isLoading: true, error: null });
             try {
                 const res = await axiosInstance.post(`/auth/reset-password/${token}`, {password});
                 set({ message: res.data.message, isLoading: false });

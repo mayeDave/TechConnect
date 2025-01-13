@@ -17,14 +17,8 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
 		e.preventDefault();
-		try {
-      await login(username, password);
-      navigate("/");
-      toast.success("Login successful, redirecting to home page");
-      
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    await login(username, password);
+    
   };
 
 
@@ -37,6 +31,7 @@ const LoginForm = () => {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         className="input input-bordered w-full"
+        autoComplete="off"
         required
       />
       <Input
@@ -46,6 +41,7 @@ const LoginForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="input input-bordered w-full"
+        autoComplete="off"
         required
       />
 
@@ -57,6 +53,7 @@ const LoginForm = () => {
           Forgot password?
         </Link>
       </div>
+      {error && <p className='text-red-500 font-semibold mb-2'>{error}</p>}
 
       <motion.button
         className="mt-5 w-full py-3 px-4 bg-gradient-to-r from-[#1e3a8a] to-[#10495f] text-white 

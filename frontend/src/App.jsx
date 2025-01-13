@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }) => {
 
   console.log(authUser);
 
-	if (!isAuthenticated) {
+	if (!isAuthenticated && !authUser) {
 		return <Navigate to='/login' replace />;
 	}
 
@@ -38,7 +38,7 @@ const RedirectedAuthenticatedUser = ({ children }) => {
 	const { isAuthenticated, authUser } = useAuthStore();
   console.log(authUser);
 
-	if (isAuthenticated && authUser?.isVerified) {
+	if ( isAuthenticated && authUser?.isVerified) {
 		return <Navigate to='/' replace />;
 	}
 
@@ -64,7 +64,7 @@ function App() {
       <Routes>
         
         <Route path="/signup" element={<RedirectedAuthenticatedUser><SignupPage /></RedirectedAuthenticatedUser>} />
-        <Route path='/verify-email' element={<RedirectedAuthenticatedUser><EmailVerificationPage /></RedirectedAuthenticatedUser>} />
+        <Route path='/verify-email' element={<EmailVerificationPage />} />
         <Route path="/forgot-password" element={<RedirectedAuthenticatedUser><ForgotPasswordPage /></RedirectedAuthenticatedUser>} />
         <Route path="/reset-password/:token" element={<RedirectedAuthenticatedUser><ResetPasswordPage /></RedirectedAuthenticatedUser>} />
         <Route path="/login" element={<RedirectedAuthenticatedUser><LoginPage /></RedirectedAuthenticatedUser>} />

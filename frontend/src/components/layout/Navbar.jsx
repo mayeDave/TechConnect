@@ -14,9 +14,11 @@ const Navbar = () => {
 	const { connectionRequests, fetchConnectionRequests } = useNetworkStore();
 
 	useEffect(() => {
-		getNotifications();
-		fetchConnectionRequests();
-	}, [ getNotifications, fetchConnectionRequests ]);
+		if (authUser?.isVerified) {
+		  getNotifications();
+		  fetchConnectionRequests();
+		}
+	  }, [authUser, getNotifications, fetchConnectionRequests]);
 
 	
 

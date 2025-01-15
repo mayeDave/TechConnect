@@ -20,8 +20,8 @@ import { useAuthStore } from "./store/useAuthStore"
 const ProtectedRoute = ({ children }) => {
 	const { isAuthenticated, authUser } = useAuthStore();
 
-  console.log(authUser);
-
+  console.log("ProtectedRoute - isAuthenticated:", isAuthenticated, "authUser:", authUser);
+  
 	if (!isAuthenticated && !authUser) {
 		return <Navigate to='/login' replace />;
 	}
@@ -55,7 +55,7 @@ function App() {
 
 	useEffect(() => {
 		checkAuth();
-	}, [checkAuth]);
+  }, [ checkAuth ]);
 
 	if (isCheckingAuth) return null;
 

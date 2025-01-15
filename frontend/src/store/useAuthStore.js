@@ -17,10 +17,10 @@ const BASE_URL = "http://localhost:6060";
         socket: null,
 
         checkAuth: async () => {
-            set({ isCheckingAuth: true, isAuthenticated: false, error: null });
+            set({ isCheckingAuth: true, error: null });
             try {
                 const res = await axiosInstance.get("/auth/me");
-                set({ authUser: res.data.user, isAuthenticated: true, isCheckingAuth: false });
+                set({ authUser: res.data, isAuthenticated: true, isCheckingAuth: false });
                 get().connectSocket();
             } catch (error) {
                 set({ error: null, isCheckingAuth: false, isAuthenticated: false });

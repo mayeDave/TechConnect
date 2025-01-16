@@ -34,8 +34,18 @@ useEffect(() => {
 
 
   const handleSave = (updatedData) => {
+    // Update the store profile
     updateProfile(updatedData);
+  
+    // Create a copy of userData and merge updates for immediate UI sync
+    if (isOwnProfile) {
+      Object.assign(authUser, updatedData); // Update properties of authUser
+    } else {
+      Object.assign(userProfile, updatedData); // Update properties of userProfile
+    }
   };
+  
+  
 
   return (
     <div className='max-w-4xl mx-auto p-4'>

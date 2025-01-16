@@ -61,6 +61,9 @@ const NetworkPage = () => {
               </div>
             </div>
           )}
+
+          {/* Add more sections for all recommended connections */}
+          
         </div>
       </div>
     </div>

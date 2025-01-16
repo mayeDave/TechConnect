@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import useNetworkStore from "../store/useNetworkStore";
 import {usePostStore} from "../store/usePostStore";
@@ -51,6 +52,9 @@ const HomePage = () => {
 						{recommendedUsers?.map((user) => (
 							<RecommendedUser key={user._id} user={user} />
 						))}
+						<Link to='/network' className='block mt-4 bg-base-100 w-full text-center py-2 rounded hover:bg-base-200'>
+						View more users
+						</Link>
 					</div>
 				</div>
 			)}

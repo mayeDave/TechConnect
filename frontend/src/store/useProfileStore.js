@@ -22,24 +22,27 @@ export const useProfileStore = create((set, get) => ({
   },
 
   // Update profile
-  updateProfile: async (updatedData) => {
-    try {
-      await axiosInstance.put("/users/profile", updatedData);
+updateProfile: async (updatedData) => {
+  try {
+    // Send the update request
+    await axiosInstance.put("/users/profile", updatedData);
 
-      toast.success("Profile updated successfully");
-      // Update the profile state after successful update
-      const res = await axiosInstance.get(`/users/${get().userProfile.username}`);
-      set((state) => ({
-        userProfile: {
-          ...state.userProfile,
-          ...res.data,
-        },
-      }));
-     
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to update profile");
-    }
-  },
+    // Notify the user of success
+    toast.success("Profile updated successfully");
+
+    // Immediately update the local state
+    set((state) => ({
+      userProfile: {
+        ...state.userProfile,
+        ...updatedData, // Merge the updated data into the existing user profile
+      },
+    }));
+  } catch (error) {
+    // Handle errors
+    toast.error(error.response?.data?.message || "Failed to update profile");
+  }
+},
+
 
   // Fetch connection status
   fetchConnectionStatus: async (userId) => {

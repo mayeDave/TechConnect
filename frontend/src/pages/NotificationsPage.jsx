@@ -72,15 +72,15 @@ const NotificationsPage = () => {
     return (
       <Link
         to={`/post/${relatedPost._id}`}
-        className="mt-2 p-2 bg-gray-50 rounded-md flex items-center space-x-2 hover:bg-gray-100 transition-colors"
+        className="mt-2 p-2 bg-base-300 rounded-md flex items-center space-x-2 hover:bg-gray-100 transition-colors"
       >
         {relatedPost.image && (
           <LazyLoadImage src={relatedPost.image} alt="Post preview" className="w-10 h-10 object-cover rounded" />
         )}
         <div className="flex-1 overflow-hidden">
-          <p className="text-sm text-gray-600 truncate">{relatedPost.content}</p>
+          <p className="text-base-content/70 text-sm truncate">{relatedPost.content}</p>
         </div>
-        <ExternalLink size={14} className="text-gray-400" />
+        <ExternalLink size={14} className="text-base-content/70" />
       </Link>
     );
   };
@@ -91,7 +91,7 @@ const NotificationsPage = () => {
         <Sidebar user={authUser} />
       </div>
       <div className="col-span-1 lg:col-span-3">
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-base-300 rounded-lg shadow p-6">
           <h1 className="text-2xl font-bold mb-6">Notifications</h1>
 
           {isNotificationsLoading ? (
@@ -101,7 +101,7 @@ const NotificationsPage = () => {
               {notifications.map((notification) => (
                 <li
                   key={notification._id}
-                  className={`bg-white border rounded-lg p-4 my-4 transition-all hover:shadow-md ${
+                  className={`bg-base-100 rounded-lg p-4 my-4 transition-all hover:shadow-md ${
                     !notification.read ? "border-blue-500" : "border-gray-200"
                   }`}
                 >

@@ -51,7 +51,7 @@ const RecommendedUser = ({ user }) => {
     if (loading) {
       return (
         <button
-          className="px-3 py-1 rounded-full text-sm bg-gray-200 text-gray-500 cursor-not-allowed"
+          className="px-2 ml-1 py-1 rounded-full text-sm bg-gray-200 text-gray-500 cursor-not-allowed"
           disabled
         >
           Loading...
@@ -62,32 +62,32 @@ const RecommendedUser = ({ user }) => {
     switch (connectionStatus?.status) {
       case "pending":
         return (
-          <button className="px-4 py-2 rounded-full text-sm bg-yellow-400 text-gray-900 flex items-center gap-2 cursor-not-allowed" disabled>
+          <button className="px-2 ml-1 py-1 rounded-full text-sm bg-yellow-400 text-gray-900 flex items-center cursor-not-allowed" disabled>
             <Clock size={16} />
             Pending
           </button>
         );
       case "received":
         return (
-          <div className="flex gap-2">
-            <button onClick={handleAccept} className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center">
-              <Check size={20} />
+          <div className="flex gap-2 justify-center">
+            <button onClick={handleAccept} className="rounded-full p-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white">
+              <Check size={16} />
             </button>
-            <button onClick={handleReject} className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center">
-              <X size={20} />
+            <button onClick={handleReject} className="rounded-full p-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white">
+              <X size={16} />
             </button>
           </div>
         );
       case "connected":
         return (
-          <button className="px-4 py-2 rounded-full text-sm bg-green-400 text-white flex items-center gap-2 cursor-not-allowed" disabled>
-            <UserCheck size={16} />
+          <button className="px-2 ml-1 py-1 rounded-full text-xs bg-green-500 text-white flex items-center cursor-not-allowed" disabled>
+            <UserCheck size={16} className='mr-1' />
             Connected
           </button>
         );
       default:
         return (
-          <button onClick={handleConnect} className="px-4 py-2 rounded-full text-sm bg-blue-400 text-white flex items-center gap-2">
+          <button onClick={handleConnect} className="px-2 ml-1 py-1 rounded-full text-sm border border-primary text-base-300 hover:bg-primary duration-200 flex items-center">
             <UserPlus size={16} />
             Connect
           </button>
@@ -96,16 +96,16 @@ const RecommendedUser = ({ user }) => {
   };
 
   return (
-    <div className="flex items-center justify-between p-3 bg-blue-800 rounded-lg shadow-lg">
-      <Link to={`/profile/${user.username}`} className="flex items-center gap-3">
+    <div className="flex items-center justify-between p-1 mb-4 bg-base-content/70 rounded-lg shadow-lg">
+      <Link to={`/profile/${user.username}`} className="flex items-center flex-grow">
         <LazyLoadImage
           src={user.profilePicture || "/avatar.png"}
           alt={user.name}
-          className="w-12 h-12 rounded-full"
+          className="w-12 h-12 rounded-full mr-3"
         />
         <div>
-          <h3 className="text-white font-semibold">{user.name}</h3>
-          <p className="text-gray-400 text-sm">{user.headline}</p>
+          <h3 className="text-base-200 font-semibold text-sm">{user.name}</h3>
+          <p className="text-base-300 text-xs">{user.headline}</p>
         </div>
       </Link>
       {renderButton()}

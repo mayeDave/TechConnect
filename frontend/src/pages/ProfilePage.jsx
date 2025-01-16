@@ -7,7 +7,6 @@ import AboutSection from "../components/AboutSection";
 import ExperienceSection from "../components/ExperienceSection";
 import EducationSection from "../components/EducationSection";
 import SkillsSection from "../components/SkillsSection";
-import { use } from "react";
 
 const ProfilePage = () => {
   const { username } = useParams();
@@ -32,6 +31,7 @@ useEffect(() => {
   
   const isOwnProfile = authUser.username === userProfile.username;
   const userData = isOwnProfile ? authUser : userProfile;
+
 
   const handleSave = (updatedData) => {
     updateProfile(updatedData);

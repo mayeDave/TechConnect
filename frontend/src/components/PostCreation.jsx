@@ -49,7 +49,7 @@ const PostCreation = ({ user }) => {
 	};
 
 	return (
-        <div className="bg-gradient-to-b from-[#243b6e] to-[#1e3a8a] rounded-lg shadow-lg mb-6 p-6">
+        <div className="bg-base-300 rounded-lg shadow-lg mb-6 p-6">
         {/* User Avatar and Input Section */}
         <div className="flex space-x-4 items-start">
             <LazyLoadImage
@@ -59,7 +59,7 @@ const PostCreation = ({ user }) => {
             />
             <textarea
                 placeholder="What's on your mind?"
-                className="w-full p-4 rounded-lg bg-[#1f3556] hover:bg-[#253f6d] focus:bg-[#253f6d] focus:outline-none text-white placeholder-gray-400 resize-none transition-colors duration-200 min-h-[100px]"
+                className="w-full p-4 rounded-lg bg-base-content/70 focus:outline-none text-white placeholder:text-base-300 resize-none transition-colors duration-200 min-h-[100px]"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
             />
@@ -71,7 +71,7 @@ const PostCreation = ({ user }) => {
                 <LazyLoadImage
                     src={imagePreview}
                     alt="Selected"
-                    className="w-full h-auto rounded-lg border border-gray-600 shadow-sm"
+                    className="w-full h-auto rounded-lg border border-x-base-content shadow-sm"
                 />
             </div>
         )}
@@ -80,7 +80,7 @@ const PostCreation = ({ user }) => {
         <div className="flex justify-between items-center mt-4">
             {/* File Upload Button */}
             <div className="flex space-x-4">
-                <label className="flex items-center text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer">
+                <label className="flex items-center font-semibold hover:text-base-content/70 transition-colors duration-200 cursor-pointer">
                     <Image size={20} className="mr-2" />
                     <span className="text-sm">Photo</span>
                     <input
@@ -96,8 +96,8 @@ const PostCreation = ({ user }) => {
             <button
                 className={`rounded-lg px-5 py-2 font-semibold transition-colors duration-200 ${
                     isLoading
-                        ? "bg-gray-500 text-gray-300 cursor-not-allowed"
-                        : "bg-[#00d9ff] text-white hover:bg-[#00b4cc]"
+                        ? "bg-base-100 cursor-not-allowed"
+                        : "bg-base-100 hover:bg-base-200"
                 }`}
                 onClick={handlePostCreation}
                 disabled={isLoading}

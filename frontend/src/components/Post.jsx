@@ -53,7 +53,7 @@ const Post = ({ post }) => {
 	};
 
 	return (
-		<div className="bg-gradient-to-b from-[#243b6e] to-[#1e3a8a] rounded-lg shadow-lg mb-6">
+		<div className="bg-base-300 rounded-lg shadow-lg mb-6">
 	{/* Post Header */}
 	<div className="p-4">
 		<div className="flex items-center justify-between mb-4">
@@ -68,10 +68,10 @@ const Post = ({ post }) => {
 				</Link>
 				<div>
 					<Link to={`/profile/${post?.author?.username}`}>
-						<h3 className="font-semibold text-white">{post?.author?.name}</h3>
+						<h3 className="text-content-base font-bold">{post?.author?.name}</h3>
 					</Link>
-					<p className="text-xs text-gray-300">{post?.author?.headline}</p>
-					<p className="text-xs text-gray-400">
+					<p className="text-xs text-base-content/80 font-bold">{post?.author?.headline}</p>
+					<p className="text-xs text-base-content/80 font-bold">
 						{formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
 					</p>
 				</div>
@@ -80,7 +80,7 @@ const Post = ({ post }) => {
 			{isOwner &&  (
 				<button
 					onClick={handleDeletePost}
-					className="text-red-400 hover:text-red-600 transition-colors duration-200"
+					className="text-red-500 hover:text-red-600 font-bold text-xl transition-colors duration-200"
 				>
 					{isLoading ? <Loader size={18} className="animate-spin" /> : <Trash2 size={18} />}
 				</button>
@@ -88,17 +88,17 @@ const Post = ({ post }) => {
 		</div>
 
 		{/* Post Content */}
-		<p className="text-white mb-4">{post.content}</p>
+		<p className="mb-4">{post.content}</p>
 		{post.image && (
 			<LazyLoadImage
 				src={post.image}
 				alt="Post content"
-				className="rounded-lg w-full mb-4 shadow-md border border-gray-700"
+				className="rounded-lg w-full mb-4 shadow-lg"
 			/>
 		)}
 
 		{/* Actions */}
-		<div className="flex justify-between text-gray-400">
+		<div className="flex justify-between text-base-content/80 font-bold">
 			<PostAction
 				icon={
 					<ThumbsUp

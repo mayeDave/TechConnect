@@ -22,7 +22,7 @@ const HomePage = () => {
 
   return (
     <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
-      <div className='hidden lg:block lg:col-span-1 sticky top-0'>
+      <div className='hidden lg:block lg:col-span-1'>
 				<Sidebar user={authUser} />
 			</div>
 
@@ -46,8 +46,8 @@ const HomePage = () => {
 
       {recommendedUsers?.length > 0 && (
 				<div className='col-span-1 lg:col-span-1 hidden lg:block'>
-					<div className='bg-[#1e3a8a]  rounded-lg shadow p-4'>
-						<h2 className='font-semibold mb-4 text-white'>People you may know</h2>
+					<div className='bg-base-300  rounded-lg shadow p-4'>
+						<h2 className='font-semibold mb-4'>People you may know</h2>
 						{recommendedUsers?.map((user) => (
 							<RecommendedUser key={user._id} user={user} />
 						))}

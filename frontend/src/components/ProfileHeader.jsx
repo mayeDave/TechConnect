@@ -97,7 +97,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
   };
 
   return (
-    <div className="bg-white shadow rounded-lg mb-6">
+    <div className="bg-base-300 shadow rounded-lg mb-6">
       {/* Banner Image */}
       <div
         className="relative h-48 rounded-t-lg bg-cover bg-center"
@@ -106,7 +106,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
         }}
       >
         {isEditing && (
-          <label className="absolute top-2 right-2 bg-white p-2 rounded-full shadow cursor-pointer">
+          <label className="absolute top-2 right-2 bg-base-100 p-2 rounded-full shadow cursor-pointer">
             <Camera size={20} />
             <input
               type="file"
@@ -128,7 +128,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
             alt={userData.name}
           />
           {isEditing && (
-            <label className="absolute bottom-0 right-1/2 transform translate-x-16 bg-white p-2 rounded-full shadow cursor-pointer">
+            <label className="absolute bottom-0 right-1/2 transform translate-x-16 bg-base-100 p-2 rounded-full shadow cursor-pointer">
               <Camera size={20} />
               <input
                 type="file"
@@ -147,7 +147,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
               type="text"
               value={editedData.name ?? userData.name}
               onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
-              className="text-2xl font-bold mb-2 text-center w-full"
+              className="text-2xl font-bold mb-2 text-center w-full bg-base-100"
             />
           ) : (
             <h1 className="text-2xl font-bold mb-2">{userData.name}</h1>
@@ -158,20 +158,20 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
               type="text"
               value={editedData.headline ?? userData.headline}
               onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-              className="text-gray-600 text-center w-full"
+              className="text-base-content bg-base-100 text-center w-full"
             />
           ) : (
-            <p className="text-gray-600">{userData.headline}</p>
+            <p className="text-base-content/70">{userData.headline}</p>
           )}
 
           <div className="flex justify-center items-center mt-2">
-            <MapPin size={16} className="text-gray-500 mr-1" />
+            <MapPin size={16} className="text-base-content mr-1" />
             {isEditing ? (
               <input
                 type="text"
                 value={editedData.location ?? userData.location}
                 onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
-                className="text-gray-600 text-center"
+                className="text-base-content/70 bg-base-100 text-center"
               />
             ) : (
               <span className="text-gray-600">{userData.location}</span>

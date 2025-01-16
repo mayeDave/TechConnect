@@ -27,7 +27,7 @@ const NetworkPage = () => {
         <Sidebar user={authUser} />
       </div>
       <div className="col-span-1 lg:col-span-3">
-        <div className="bg-secondary rounded-lg shadow p-6 mb-6">
+        <div className="bg-base-300 rounded-lg shadow p-6 mb-6">
           <h1 className="text-2xl font-bold mb-6">My Network</h1>
 
           {connectionRequests.length > 0 ? (
@@ -41,8 +41,8 @@ const NetworkPage = () => {
             </div>
           ) : (
             <div className="bg-white rounded-lg shadow p-6 text-center mb-6">
-              <UserPlus size={48} className="mx-auto text-gray-400 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">No Connection Requests</h3>
+              <UserPlus size={48} className="mx-auto text-gray-600 mb-4" />
+              <h3 className="text-xl text-slate-400 font-semibold mb-2">No Connection Requests</h3>
               <p className="text-gray-600">
                 You don&apos;t have any pending connection requests at the moment.
               </p>

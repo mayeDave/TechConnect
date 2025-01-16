@@ -25,7 +25,7 @@ export default function Sidebar({ user }) {
 			{/* User Info Section */}
 			<div className="pt-16 pb-4 text-center ">
 				<Link to={`/profile/${user.username}`} className="hover:underline">
-					<h2 className="text-xl hover:text-base-content/80 font-bold">{user.name}</h2>
+					<h2 className="text-xl hover:text-base-content font-bold">{user.name}</h2>
 				</Link>
 				<p className="text-sm ">{user.headline || "No headline available"}</p>
 				<p className="text-xs ">{user.connections?.length || 0} connections</p>
@@ -47,7 +47,7 @@ export default function Sidebar({ user }) {
 						<li>
 							<Link
 								to="/network"
-								className="flex items-center py-3 px-4 rounded-md bg-gradient-to-r from-[#1e3a8a] to-[#4260b1] hover:from-[#00d9ff] hover:to-[#1e3a8a] text-white transition duration-200 shadow-sm"
+								className="flex items-center py-3 px-4 rounded-md bg-base-content/70 hover:bg-base-content text-white transition duration-200 shadow-sm"
 							>
 								<UserPlus className="mr-3" size={20} />
 								<span className="text-sm font-medium">My Network</span>
@@ -56,7 +56,7 @@ export default function Sidebar({ user }) {
 						<li>
 							<Link
 								to="/notifications"
-								className="flex items-center py-3 px-4 rounded-md bg-gradient-to-r from-[#1e3a8a] to-[#4260b1] hover:from-[#00d9ff] hover:to-[#1e3a8a] text-white transition duration-200 shadow-sm"
+								className="flex items-center py-3 px-4 rounded-md bg-base-content/70 hover:bg-base-content text-white transition duration-200 shadow-sm"
 							>
 								<Bell className="mr-3" size={20} />
 								<span className="text-sm font-medium">Notifications</span>
@@ -70,7 +70,7 @@ export default function Sidebar({ user }) {
 			<div className="border-t border-gray-700 p-4 text-center">
 				<Link
 					to={`/profile/${user.username}`}
-					className="text-sm font-semibold text-white hover:text-[#00d9ff] transition duration-200"
+					className="text-sm font-semibold hover:text-base-content transition duration-200"
 				>
 					Visit your profile
 				</Link>

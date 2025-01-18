@@ -62,7 +62,7 @@ const Navbar = () => {
 					className="flex flex-col items-center relative hover:text-base-content/80 transition duration-200"
 				  >
 					<Users size={24} className="font-bold" />
-					<span className="text-x hidden md:block">My Network</span>
+					<span className="text-x hidden md:block">Connections</span>
 					{unreadConnectionRequestsCount > 0 && (
 					  <span
 						className="absolute -top-1 -right-1 md:right-5 bg-blue-500 text-white text-xs 
@@ -101,7 +101,7 @@ const Navbar = () => {
 					className="flex flex-col items-center hover:text-base-content/80 transition duration-200"
 				  >
 					<User size={24} className="font-bold" />
-					<span className="text-x hidden md:block">Me</span>
+					<span className="text-x hidden md:block">Account</span>
 				  </Link>
   
 				  <div className="dropdown dropdown-hover">

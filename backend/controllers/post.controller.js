@@ -1,22 +1,32 @@
 import Post from "../models/post.model.js";
 import Notification from "../models/notification.model.js";
 import cloudinary from "../config/cloudinary.js";
-import { sendCommentNotificationEmail } from "../nodemailer/email.js";
+// import { sendCommentNotificationEmail } from "../nodemailer/email.js";
 
 export const getFeedPosts = async (req, res) => {
     try {
-        const posts = await Post.find({author:{$in: [...req.user.connections, req.user._id]}})
-        .populate("author", "name username profilePicture headline")
+        const posts = await Post.find({
+            author: { $in: [...req.user.connections, req.user._id] }, // Check connections and the current user
+        })
+        .populate({
+            path: "author",
+            select: "name username profilePicture headline isVerified", // Include the isVerified field
+            match: { isVerified: true }, // Only include verified authors
+        })
         .populate("likes.user", "name username profilePicture")
         .populate("comments.user", "name username profilePicture")
         .sort({ createdAt: -1 });
 
-        res.status(200).json(posts);
+        // Filter out posts where the author is not verified
+        const verifiedPosts = posts.filter(post => post.author !== null);
+
+        res.status(200).json(verifiedPosts);
     } catch (error) {
         console.error("Error in getFeedPosts controller:", error);
         res.status(500).json({ message: "Server error" });
     }
 };
+
 
 export const createPost = async (req, res) => {
 	try {
@@ -109,19 +119,19 @@ export const createComment = async (req, res) => {
             await newNotification.save();
 
 
-            try {
-                const postUrl = process.env.CLIENT_URL + "/post/" + postId;
-                await sendCommentNotificationEmail(
-                    post.author.email, 
-                    post.author.name,
-                    req.user.name, 
-                    postUrl,
-                    content
-                );
+            // try {
+            //     const postUrl = process.env.CLIENT_URL + "/post/" + postId;
+            //     await sendCommentNotificationEmail(
+            //         post.author.email, 
+            //         post.author.name,
+            //         req.user.name, 
+            //         postUrl,
+            //         content
+            //     );
                 
-            } catch (error) {
-                console.error("Error in sending comment notification:", error);
-            }
+            // } catch (error) {
+            //     console.error("Error in sending comment notification:", error);
+            // }
         }
 
         res.status(200).json(post);

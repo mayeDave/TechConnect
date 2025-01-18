@@ -7,12 +7,12 @@ import Sidebar from "../components/Sidebar";
 import PostCreation from "../components/PostCreation";
 import Post from "../components/Post";
 import { Users } from "lucide-react";
-import RecommendedUser from "../components/RecommendedUser";
+import DisplayedUsers from "../components/DisplayedUsers";
 
 const HomePage = () => {
   const { authUser } = useAuthStore(); // Importing from authStore
 
-  const { recommendedUsers, fetchRecommendedUsers } = useNetworkStore(); // Importing from networkStore
+  const { displayedUsers, fetchRecommendedUsers } = useNetworkStore(); // Importing from networkStore
 
   const { posts, fetchPosts } = usePostStore(); // Placeholder for post store integration
 
@@ -45,12 +45,12 @@ const HomePage = () => {
 				)}
 			</div>
 
-      {recommendedUsers?.length > 0 && (
+      {displayedUsers?.length > 0 && (
 				<div className='col-span-1 lg:col-span-1 hidden lg:block'>
 					<div className='bg-base-300  rounded-lg shadow p-4'>
 						<h2 className='font-semibold mb-4'>People you may know</h2>
-						{recommendedUsers?.map((user) => (
-							<RecommendedUser key={user._id} user={user} />
+						{displayedUsers?.map((user) => (
+							<DisplayedUsers key={user._id} user={user} />
 						))}
 						<Link to='/network' className='block mt-4 bg-base-100 w-full text-center py-2 rounded hover:bg-base-200'>
 						View more users

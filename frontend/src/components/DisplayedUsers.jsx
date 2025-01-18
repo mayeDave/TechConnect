@@ -4,7 +4,7 @@ import { Check, Clock, UserCheck, UserPlus, X } from "lucide-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useEffect, useState } from "react";
 
-const RecommendedUser = ({ user }) => {
+const DisplayedUsers = ({ user }) => {
   const {
     fetchConnectionStatus,
     sendConnectionRequest,
@@ -113,4 +113,4 @@ const RecommendedUser = ({ user }) => {
   );
 };
 
-export default RecommendedUser;
+export default DisplayedUsers;

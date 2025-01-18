@@ -5,15 +5,14 @@ export const getSuggestedConnections = async (req, res) => {
     try {
         const currentUser = await User.findById(req.user._id).select("connections");
 
-        // find users who are not already connected and not our own profile
-
+        // Find users who are not already connected, not the current user, and are verified
         const suggestedUsers = await User.find({
             _id: {
-                 $ne: req.user._id,
-                 $nin: currentUser.connections
-            } // exclude current user and users already connected
-        }).select("name username profilePicture headline")
-        .limit(3); //limit suggests the number of connections you want displayed
+                $ne: req.user._id, // Exclude the current user
+                $nin: currentUser.connections // Exclude already connected users
+            },
+            isVerified: true // Only include verified users
+        }).select("name username profilePicture headline connections isVerified");
 
         res.status(200).json(suggestedUsers);
         
@@ -22,6 +21,7 @@ export const getSuggestedConnections = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
 
 export const getPublicProfile = async (req, res) => {
     try {

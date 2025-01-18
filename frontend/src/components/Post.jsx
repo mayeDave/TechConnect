@@ -130,13 +130,13 @@ const Post = ({ post }) => {
 						className="bg-gray-800 p-3 rounded-lg flex items-start shadow-sm"
 					>
 						<LazyLoadImage
-							src={comment.user.profilePicture || "/avatar.png"}
-							alt={comment.user.name}
+							src={comment.user?.profilePicture || "/avatar.png"}
+							alt={comment.user?.name}
 							className="w-8 h-8 rounded-full mr-3"
 						/>
 						<div className="flex-grow">
 							<div className="flex items-center justify-between mb-1">
-								<span className="font-semibold text-white mr-2">{comment.user.name}</span>
+								<span className="font-semibold text-white mr-2">{comment.user?.name}</span>
 								<span className="text-xs text-gray-400">
 									{formatDistanceToNow(new Date(comment.createdAt))}
 								</span>

@@ -13,10 +13,14 @@ const ForgotPasswordForm = () => {
 
   const { isLoading, forgotPassword } = useAuthStore();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    forgotPassword({ email });
-    setIsSubmitted(true);
+    try {
+      await forgotPassword(email);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

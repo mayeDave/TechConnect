@@ -46,8 +46,8 @@ const NotificationsPage = () => {
       case "comment":
         return (
           <span>
-            <Link to={`/profile/${notification.relatedUser.username}`} className="font-bold">
-              {notification.relatedUser.name}
+            <Link to={`/profile/${notification.relatedUser?.username}`} className="font-bold">
+              {notification.relatedUser?.name}
             </Link>{" "}
             commented on your post
           </span>

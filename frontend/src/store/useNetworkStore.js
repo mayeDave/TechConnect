@@ -7,6 +7,7 @@ const useNetworkStore = create((set, get) => ({
   connectionRequests: [],
   connections: [],
   recommendedUsers: [],
+  displayedUsers: [],
   connectionStatuses: {},
 
   // Fetch connection requests
@@ -33,7 +34,8 @@ const useNetworkStore = create((set, get) => ({
   fetchRecommendedUsers: async () => {
     try {
       const { data } = await axiosInstance.get("/users/suggestions");
-      set({ recommendedUsers: data });
+      set({ recommendedUsers: data, displayedUsers: data.slice(0, 3) });
+
     } catch (error) {
       console.error("Failed to fetch recommended users:", error);
     }

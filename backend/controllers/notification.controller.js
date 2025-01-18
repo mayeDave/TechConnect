@@ -3,16 +3,28 @@ import Notification from "../models/notification.model.js";
 export const getUserNotifications = async (req, res) => {
     try {
         const userId = req.user._id;
-        const notifications = await Notification.find({ recipient: userId }).sort({ createdAt: -1 })
-        .populate("relatedUser", "name username profilePicture")
-        .populate("relatedPost", "content image");   
 
-        res.status(200).json(notifications);
+        const notifications = await Notification.find({ recipient: userId })
+            .sort({ createdAt: -1 })
+            .populate({
+                path: "relatedUser",
+                select: "name username profilePicture",
+                match: { isVerified: true }, // Optional: Only include verified users
+            })
+            .populate("relatedPost", "content image");
+
+        // Filter out notifications where relatedUser or relatedPost is null
+        const validNotifications = notifications.filter(notification => 
+            notification.relatedUser !== null && notification.relatedPost !== null
+        );
+
+        res.status(200).json(validNotifications);
     } catch (error) {
         console.error("Error in getUserNotifications controller:", error);
         res.status(500).json({ message: "Server error" });
     }
 };
+
 
 export const markNotificationAsRead = async (req, res) => {
     const notificationId = req.params.id;

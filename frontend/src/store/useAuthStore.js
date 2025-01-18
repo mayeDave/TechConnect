@@ -75,9 +75,9 @@ const BASE_URL = "http://localhost:6060";
             set({ isLoading: true, error: null });
             try {
                 const res = await axiosInstance.post("/auth/forgot-password", {email});
-                set({ message: res.data.message, isLoading: false });
+                set({ message: res.data?.message, isLoading: false });
             } catch (error) {
-                set({ error: error.response.data.message, isLoading: false });
+                set({ error: error.response?.data?.message, isLoading: false });
                 throw error;
             }
         },

@@ -10,6 +10,16 @@ const useNetworkStore = create((set, get) => ({
   displayedUsers: [],
   connectionStatuses: {},
 
+  // Fetch all relevant data
+  fetchAllData: async () => {
+    await Promise.all([
+      get().fetchConnectionRequests(),
+      get().fetchConnections(),
+      get().fetchConnectionStatus(),
+      get().fetchRecommendedUsers(),
+    ]);
+  },
+
   // Fetch connection requests
   fetchConnectionRequests: async () => {
     try {
@@ -69,7 +79,10 @@ const useNetworkStore = create((set, get) => ({
           ...state.connectionStatuses,
           [userId]: { status: "pending" },
         },
-      }));
+      }))
+      
+      // Fetch all related data to update the UI
+      await get().fetchAllData();
     } catch (error) {
       toast.error(error.response?.data?.error || "Failed to send request");
     }
@@ -83,10 +96,18 @@ const useNetworkStore = create((set, get) => ({
 
       // Update state
       set((state) => ({
+        connectionStatuses: {
+          ...state.connectionStatuses,
+          [requestId]: { status: "accepted" },
+        },
         connectionRequests: state.connectionRequests.filter(
-          (req) => req.id !== requestId
+          (request) => request._id !== requestId
         ),
-      }));
+        
+      
+      }))
+      // Fetch all related data to update the UI
+      await get().fetchAllData();
     } catch (error) {
       toast.error(error.response?.data?.error || "Failed to accept request");
     }
@@ -100,10 +121,16 @@ const useNetworkStore = create((set, get) => ({
 
       // Update state
       set((state) => ({
+        connectionStatuses: {
+          ...state.connectionStatuses,
+          [requestId]: { status: "rejected" },
+        },
         connectionRequests: state.connectionRequests.filter(
-          (req) => req.id !== requestId
+          (request) => request._id !== requestId
         ),
-      }));
+      }))
+      // Fetch all related data to update the UI
+      await get().fetchAllData();
     } catch (error) {
       toast.error(error.response?.data?.error || "Failed to reject request");
     }

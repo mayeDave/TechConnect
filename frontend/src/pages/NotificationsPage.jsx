@@ -7,6 +7,7 @@ import { formatDistanceToNow } from "date-fns";
 import Sidebar from "../components/Sidebar";
 import { useNotificationStore } from "../store/useNotificationStore";
 import { useAuthStore } from "../store/useAuthStore";
+import NotificationsSkeleton from "../components/skeletons/NotificationsSkeleton";
 
 const NotificationsPage = () => {
 	const { authUser } = useAuthStore();
@@ -95,7 +96,7 @@ const NotificationsPage = () => {
           <h1 className="text-2xl font-bold mb-6">Notifications</h1>
 
           {isNotificationsLoading ? (
-            <p>Loading notifications...</p>
+            <NotificationsSkeleton />
           ) : notifications.length > 0 ? (
             <ul>
               {notifications.map((notification) => (

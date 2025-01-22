@@ -50,7 +50,7 @@ export default function Sidebar({ user }) {
 								className="flex items-center py-3 px-4 rounded-md bg-base-content/70 hover:bg-base-content text-white transition duration-200 shadow-sm"
 							>
 								<UserPlus className="mr-3" size={20} />
-								<span className="text-sm font-medium">My Network</span>
+								<span className="text-sm font-medium">Connections</span>
 							</Link>
 						</li>
 						<li>

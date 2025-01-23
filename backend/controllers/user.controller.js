@@ -46,13 +46,14 @@ export const getCollaborators = async (req, res) => {
         if (includeConnected === 'true') {
             filter = { ...filter }; // No changes needed to filter
         } else {
-            filter._id = { $nin: currentUser.connections }; // Exclude connected users
+            filter._id = { $nin: currentUser.connections, $ne: req.user._id }; // Exclude connected users
         }
 
         // Fetch collaborators based on the filter
         const collaborators = await User.find(filter).select(
             "name username profilePicture headline connections skills isVerified"
         );
+       
 
         res.status(200).json(collaborators);
     } catch (error) {
@@ -60,6 +61,7 @@ export const getCollaborators = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 };
+
 
 
 

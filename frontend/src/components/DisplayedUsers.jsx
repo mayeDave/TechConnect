@@ -17,10 +17,10 @@ const DisplayedUsers = ({ user }) => {
 
   useEffect(() => {
     const fetchStatus = async () => {
-      setLoading(true);
+      // setLoading(true);
       const status = await fetchConnectionStatus(user._id);
       setConnectionStatus(status);
-      setLoading(false);
+      // setLoading(false);
     };
 
     fetchStatus();
@@ -48,16 +48,16 @@ const DisplayedUsers = ({ user }) => {
   };
 
   const renderButton = () => {
-    if (loading) {
-      return (
-        <button
-          className="px-2 ml-1 py-1 rounded-full text-sm bg-gray-200 text-gray-500 cursor-not-allowed"
-          disabled
-        >
-          Loading...
-        </button>
-      );
-    }
+    // if (loading) {
+    //   return (
+    //     <button
+    //       className="px-2 ml-1 py-1 rounded-full text-sm bg-gray-200 text-gray-500 cursor-not-allowed"
+    //       disabled
+    //     >
+    //       Loading...
+    //     </button>
+    //   );
+    // }
 
     switch (connectionStatus?.status) {
       case "pending":

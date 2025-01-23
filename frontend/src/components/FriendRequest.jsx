@@ -1,9 +1,9 @@
-import useNetworkStore from "../store/useNetworkStore";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useProfileStore } from "../store/useProfileStore";
 
 const FriendRequest = ({ request }) => {
-  const { acceptConnectionRequest, rejectConnectionRequest } = useNetworkStore();
+  const { acceptRequest, rejectRequest } = useProfileStore();
 
   return (
     <div className="bg-white rounded-lg shadow p-4 flex items-center justify-between transition-all hover:shadow-md">
@@ -27,13 +27,13 @@ const FriendRequest = ({ request }) => {
       <div className="space-x-2">
         <button
           className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors"
-          onClick={() => acceptConnectionRequest(request._id)}
+          onClick={() => acceptRequest(request._id)}
         >
           Accept
         </button>
         <button
           className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
-          onClick={() => rejectConnectionRequest(request._id)}
+          onClick={() => rejectRequest(request._id)}
         >
           Reject
         </button>

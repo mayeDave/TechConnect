@@ -22,6 +22,46 @@ export const getSuggestedConnections = async (req, res) => {
     }
 };
 
+export const getCollaborators = async (req, res) => {
+    try {
+        const { search, includeConnected } = req.query; // Extract query parameters
+        const currentUser = await User.findById(req.user._id).select("connections");
+
+        // Define the base filter object
+        let filter = {
+            _id: { $ne: req.user._id }, // Exclude the current user
+            isVerified: true, // Only include verified users
+        };
+
+        // Modify filter based on search query
+        if (search) {
+            const regex = new RegExp(search, "i"); // Case-insensitive search
+            filter.$or = [
+                { skills: { $regex: regex } }, // Search in skills array
+                { headline: { $regex: regex } }, // Search in headline field
+            ];
+        }
+
+        // Include connected users if the flag is true
+        if (includeConnected === 'true') {
+            filter = { ...filter }; // No changes needed to filter
+        } else {
+            filter._id = { $nin: currentUser.connections }; // Exclude connected users
+        }
+
+        // Fetch collaborators based on the filter
+        const collaborators = await User.find(filter).select(
+            "name username profilePicture headline connections skills isVerified"
+        );
+
+        res.status(200).json(collaborators);
+    } catch (error) {
+        console.error("Error in getCollaborators controller:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
+
 
 export const getPublicProfile = async (req, res) => {
     try {

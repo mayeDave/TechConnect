@@ -12,12 +12,24 @@ const Navbar = () => {
   const { notifications, getNotifications } = useNotificationStore();
   const { connectionRequests, fetchConnectionRequests } = useNetworkStore();
 
-  useEffect(() => {
+ 	 useEffect(() => {
     if (authUser?.isVerified) {
       getNotifications();
       fetchConnectionRequests();
     }
+
+    // Poll every 5 seconds to keep connection requests up to date
+    const intervalId = setInterval(() => {
+      if (authUser?.isVerified) {
+        fetchConnectionRequests(); // Refresh connection requests
+		
+      }
+    }, 10000);
+
+    // Clean up the interval when component is unmounted
+    return () => clearInterval(intervalId);
   }, [authUser, getNotifications, fetchConnectionRequests]);
+  
 
   const unreadNotificationCount = notifications?.filter(
     (notification) => !notification.read
@@ -111,7 +123,7 @@ const Navbar = () => {
 					</div>
 					<ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
 					  <li>
-						<Link to={'/'}>Collaborate</Link>
+						<Link to={'/collaboration'}>Collaborate</Link>
 					  </li>
 					  <li>
 						<Link to={'/settings'}>Change Theme</Link>

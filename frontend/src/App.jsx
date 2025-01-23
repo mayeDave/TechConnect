@@ -6,6 +6,7 @@ import NetworkPage from "./pages/NetworkPage"
 import PostPage from "./pages/PostPage"
 import ProfilePage from "./pages/ProfilePage"
 import ChatPage from "./pages/ChatPage"
+import CollaborationPage from "./pages/CollaborationPage"
 import LoginPage from "./pages/auth/LoginPage"
 import SignupPage from "./pages/auth/SignupPage"
 import EmailVerificationPage from "./pages/auth/EmailVerificationPage"
@@ -75,6 +76,7 @@ function App() {
         <Route path="/post/:postId" element={<ProtectedRoute><PostPage /></ProtectedRoute>} />
         <Route path="/profile/:username" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} /> 
         <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
+        <Route path="/collaboration" element={<ProtectedRoute><CollaborationPage /></ProtectedRoute>} />
 
       </Routes>
       <Toaster />

@@ -3,6 +3,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Home, UserPlus, Bell } from "lucide-react";
 
 export default function Sidebar({ user }) {
+	
 	return (
 		<div className="bg-base-300 rounded-lg shadow-lg overflow-hidden">
 			{/* Banner Section */}

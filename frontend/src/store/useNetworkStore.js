@@ -11,11 +11,11 @@ const useNetworkStore = create((set, get) => ({
   connectionStatuses: {},
 
   // Fetch all relevant data
-  fetchAllData: async () => {
+  fetchAllData: async (userId) => {
     await Promise.all([
-      get().fetchConnectionRequests(),
+      // get().fetchConnectionRequests(),
       get().fetchConnections(),
-      get().fetchConnectionStatus(),
+      get().fetchConnectionStatus(userId),
       get().fetchRecommendedUsers(),
     ]);
   },
@@ -44,7 +44,18 @@ const useNetworkStore = create((set, get) => ({
   fetchRecommendedUsers: async () => {
     try {
       const { data } = await axiosInstance.get("/users/suggestions");
-      set({ recommendedUsers: data, displayedUsers: data.slice(0, 3) });
+      set((state) => ({
+        recommendedUsers: data,
+        displayedUsers: data.slice(0, 3),
+        connectionStatuses: {
+          ...state.connectionStatuses, // Preserve existing statuses
+          ...data.reduce((acc, user) => {
+            acc[user._id] = acc[user._id] || null; // Avoid overwriting if already fetched
+            return acc;
+          }, {}),
+        },
+      }));
+      
 
     } catch (error) {
       console.error("Failed to fetch recommended users:", error);
@@ -61,6 +72,7 @@ const useNetworkStore = create((set, get) => ({
       set((state) => ({
         connectionStatuses: { ...state.connectionStatuses, [userId]: data },
       }));
+      console.log(`Fetched status for ${userId}:`, data);
       return data;
     } catch (error) {
       console.error("Failed to fetch connection status:", error);
@@ -89,32 +101,28 @@ const useNetworkStore = create((set, get) => ({
   },
 
   // Accept connection request
-  acceptConnectionRequest: async (requestId) => {
+  acceptConnectionRequest: async (requestId, userId) => {
     try {
       await axiosInstance.put(`/connections/accept/${requestId}`);
       toast.success("Connection request accepted");
-
-      // Update state
+  
+      // Update the specific user's connection status
       set((state) => ({
         connectionStatuses: {
           ...state.connectionStatuses,
-          [requestId]: { status: "accepted" },
+          [userId]: { status: "connected" }, // Ensure status matches your backend
         },
-        connectionRequests: state.connectionRequests.filter(
-          (request) => request._id !== requestId
-        ),
-        
-      
-      }))
-      // Fetch all related data to update the UI
+      }));
+  
+      // Optional: Re-fetch related data if needed
       await get().fetchAllData();
     } catch (error) {
       toast.error(error.response?.data?.error || "Failed to accept request");
     }
   },
-
+  
   // Reject connection request
-  rejectConnectionRequest: async (requestId) => {
+  rejectConnectionRequest: async (requestId, userId) => {
     try {
       await axiosInstance.put(`/connections/reject/${requestId}`);
       toast.success("Connection request rejected");
@@ -123,11 +131,8 @@ const useNetworkStore = create((set, get) => ({
       set((state) => ({
         connectionStatuses: {
           ...state.connectionStatuses,
-          [requestId]: { status: "rejected" },
+          [userId]: { status: "rejected" },
         },
-        connectionRequests: state.connectionRequests.filter(
-          (request) => request._id !== requestId
-        ),
       }))
       // Fetch all related data to update the UI
       await get().fetchAllData();

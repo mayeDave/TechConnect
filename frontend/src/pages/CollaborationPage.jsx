@@ -1,8 +1,8 @@
 // pages/CollaborationPage.js
 import { useEffect, useState } from "react";
 import useCollaborationStore from "../store/useCollaborationStore";
-import UserCard from "../components/UserCard";
-// import RecommendedUsers from "../components/RecommendedUsers";
+// import UserCard from "../components/UserCard";
+import RecommendedUsers from "../components/RecommendedUsers";
 
 const CollaborationPage = () => {
   const { collaborations, fetchCollaborations, loading, error } = useCollaborationStore();
@@ -44,7 +44,7 @@ const CollaborationPage = () => {
       ) : collaborations.length ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {collaborations.map((user) => (
-            <UserCard key={user.id} user={user} isConnection={false} />
+            <RecommendedUsers key={user.id} user={user} isConnection={false} />
           ))}
         </div>
       ) : (

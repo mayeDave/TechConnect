@@ -13,7 +13,7 @@ const useNetworkStore = create((set, get) => ({
   // Fetch all relevant data
   fetchAllData: async (userId) => {
     await Promise.all([
-      // get().fetchConnectionRequests(),
+      get().fetchConnectionRequests(),
       get().fetchConnections(),
       get().fetchConnectionStatus(userId),
       get().fetchRecommendedUsers(),
@@ -133,6 +133,7 @@ const useNetworkStore = create((set, get) => ({
           ...state.connectionStatuses,
           [userId]: { status: "rejected" },
         },
+
       }))
       // Fetch all related data to update the UI
       await get().fetchAllData();

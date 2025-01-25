@@ -31,10 +31,10 @@ const CollaborationPage = () => {
         <button
           onClick={handleToggle}
           className={`px-4 py-2 rounded-lg ${
-            includeConnected ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"
+            includeConnected ? "bg-base-content text-white" : "bg-base-300 "
           }`}
         >
-          {includeConnected ? "Show All" : "Exclude Connected"}
+          {includeConnected ? "Exclude Connected" : "Include Connected"}
         </button>
       </div>
       {loading ? (

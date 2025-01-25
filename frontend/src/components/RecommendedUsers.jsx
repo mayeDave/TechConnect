@@ -67,7 +67,7 @@ const RecommendedUsers = ({ user }) => {
     switch (connectionStatus?.status) {
       case "pending":
         return (
-          <button className="px-2 ml-1 py-1 rounded-full text-sm bg-yellow-400 text-gray-900 flex items-center cursor-not-allowed" disabled>
+          <button className="px-2 m-1 py-1 font-bold w-full rounded-full text-sm bg-yellow-400 text-gray-900 flex items-center justify-center cursor-not-allowed" disabled>
             <Clock size={16} />
             Pending
           </button>
@@ -75,24 +75,24 @@ const RecommendedUsers = ({ user }) => {
       case "received":
         return (
           <div className="flex gap-2 justify-center">
-            <button onClick={handleAccept} className="rounded-full p-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white">
-              <Check size={16} />
+            <button onClick={handleAccept} className="rounded-full font-bold p-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white">
+              <Check size={20} />
             </button>
-            <button onClick={handleReject} className="rounded-full p-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white">
-              <X size={16} />
+            <button onClick={handleReject} className="rounded-full font-bold p-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white">
+              <X size={20} />
             </button>
           </div>
         );
       case "connected":
         return (
-          <button className="px-2 ml-1 py-1 rounded-full text-xs bg-green-500 text-white flex items-center cursor-not-allowed" disabled>
+          <button className="px-2 m-1 py-1 font-bold rounded-full w-full text-xs bg-green-500 text-white flex items-center justify-center cursor-not-allowed" disabled>
             <UserCheck size={16} className="mr-1" />
             Connected
           </button>
         );
       default:
         return (
-          <button onClick={handleConnect} className="px-2 ml-1 py-1 rounded-full text-sm border border-primary text-base-300 hover:bg-primary duration-200 flex items-center">
+          <button onClick={handleConnect} className="px-2 m-1 py-1 w-full rounded-full bg-base-content/70 text-sm border-base-300 text-base-300 hover:bg-base-content font-bold border-2 duration-200 flex items-center justify-center">
             <UserPlus size={16} />
             Connect
           </button>
@@ -109,7 +109,7 @@ const RecommendedUsers = ({ user }) => {
           className="w-24 h-24 rounded-full object-cover mb-4"
         />
         <div className="flex flex-col items-center">
-          <h3 className="text-base-200 font-semibold text-sm">{user.name}</h3>
+          <h3 className="text-center font-semibold text-sm">{user.name}</h3>
           <p className="text-gray-600 text-center">{user.headline}</p>
           <p className="text-sm text-gray-500 mt-2">{user.connections?.length} connections</p>
         </div>

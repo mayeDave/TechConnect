@@ -3,12 +3,17 @@
 @tailwind utilities;
 
 .card-body p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Show 3 lines of content */
-  -webkit-box-orient: vertical;
-}
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Webkit-specific */
+    -webkit-box-orient: vertical;
+  
+    /* Standard property for compatibility */
+    line-clamp: 3;
+    box-orient: vertical;
+  }
+  
 
 /* Add a fade-out transition effect */
 .article {

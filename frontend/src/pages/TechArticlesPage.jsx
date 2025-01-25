@@ -1,23 +1,23 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import useTechNewsStore from "../store/useTechNewsStore";
+import useTechArticlesStore from "../store/useTechArticlesStore";
 
-const TechNewsPage = () => {
+const TechArticlesPage = () => {
   const {
-    news,
+    articles,
     currentPage,
     totalPages,
     isLoading,
     error,
-    fetchTechNews,
+    fetchTechArticles,
     changePage,
-  } = useTechNewsStore();
+  } = useTechArticlesStore();
 
   const observer = useRef();
 
-  // Fetch the first page of tech news on initial load
+  // Fetch the first page of articles on initial load
   useEffect(() => {
-    if (news.length === 0) fetchTechNews(currentPage);
+    if (articles.length === 0) fetchTechArticles(currentPage);
   }, []);
 
   // IntersectionObserver setup for infinite scrolling
@@ -54,7 +54,7 @@ const TechNewsPage = () => {
       <div className="text-center text-error">
         <span>Error: {error}</span>
         <button
-          onClick={() => fetchTechNews(currentPage)}
+          onClick={() => fetchTechArticles(currentPage)}
           className="btn btn-secondary mt-4"
         >
           Retry
@@ -63,21 +63,27 @@ const TechNewsPage = () => {
     );
   }
 
-  // No news available
-  if (news?.length === 0 && !isLoading) {
-    return <div className="text-center">No news available at the moment.</div>;
+  // No articles available
+  if (articles?.length === 0 && !isLoading) {
+    return (
+      <div className="text-center">
+        No programming articles available at the moment.
+      </div>
+    );
   }
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-6">Tech News</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">
+        Programming Articles
+      </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {news.map((article, index) => (
+        {articles.map((article, index) => (
           <motion.div
             key={article.link} // Use unique identifier
             className="card bg-base-100 shadow-xl"
-            id={index === news.length - 1 ? "last-article" : ""}
+            id={index === articles.length - 1 ? "last-article" : ""}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -111,7 +117,7 @@ const TechNewsPage = () => {
                   rel="noopener noreferrer"
                   className="btn btn-primary"
                 >
-                  Read more
+                  Learn more
                 </a>
               </div>
             </div>
@@ -129,4 +135,4 @@ const TechNewsPage = () => {
   );
 };
 
-export default TechNewsPage;
+export default TechArticlesPage;

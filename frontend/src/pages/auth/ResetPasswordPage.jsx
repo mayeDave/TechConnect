@@ -13,10 +13,10 @@ const ResetPasswordPage = () => {
         className="flex justify-center items-start p-6 sm:p-12"
       >
         <div
-          className="max-w-md w-full pt-4 bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
+          className="max-w-md w-full pt-4 bg-base-300 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
         >
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-[#fff] to-[#79caed] text-transparent bg-clip-text">
+          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-base-content to-base-content/45 text-transparent bg-clip-text">
               Reset Password
             </h2>
           </div>

@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Loader, User, Lock } from "lucide-react";
+import { Loader, User, Lock, Eye, EyeOff } from "lucide-react";
 import Input from "../Input";
 import { useAuthStore } from "../../store/useAuthStore";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const navigate = useNavigate();
 
@@ -40,7 +44,7 @@ const LoginForm = () => {
       />
       <Input
         icon={Lock}
-        type="password"
+        type={showPassword ? "text" : "password"}
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -48,6 +52,12 @@ const LoginForm = () => {
         autoComplete="off"
         required
       />
+      <span
+        onClick={togglePasswordVisibility}
+        className="absolute right-14 top-1/2 transform translate-y-[-290%] cursor-pointer text-base"
+      >
+        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+      </span>
 
       <div className="flex items-center mb-6">
         <Link
@@ -67,7 +77,7 @@ const LoginForm = () => {
         type="submit"
         disabled={isLoading}
       >
-        {isLoading ? <Loader className="size-5 animate-spin" /> : "Login"}
+        {isLoading ? <Loader className="size-5 animate-spin" /> : "Sign In"}
       </motion.button>
     </form>
   );

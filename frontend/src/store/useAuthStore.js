@@ -81,10 +81,10 @@ const BASE_URL = "http://localhost:6060";
                 throw error;
             }
         },
-        resetPassword: async (token, password) => {
+        resetPassword: async (token, password, confirmPassword) => {
             set({ isLoading: true, error: null });
             try {
-                const res = await axiosInstance.post(`/auth/reset-password/${token}`, {password});
+                const res = await axiosInstance.post(`/auth/reset-password/${token}`, {password, confirmPassword});
                 set({ message: res.data.message, isLoading: false });
             } catch (error) {
                 set({ error: error.response.data.message, isLoading: false });

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { axiosInstance } from "../../lib/axios";
 import toast from "react-hot-toast";
+import { useAuthStore } from "../../store/useAuthStore";
 import { Lock } from "lucide-react";
 import Input from "../Input";
 
@@ -23,7 +23,7 @@ const ResetPasswordForm = () => {
 			return;
 		}
 		try {
-			await resetPassword(token, password);
+			await resetPassword(token, password, confirmPassword);
 
 			toast.success("Password reset successfully, redirecting to login page...");
 			setTimeout(() => {
@@ -59,10 +59,8 @@ const ResetPasswordForm = () => {
 					/>
 
 <motion.button
-        className="mt-5 w-full py-3 px-4 bg-gradient-to-r from-[#1e3a8a] to-[#10495f] text-white 
-						font-bold rounded-lg shadow-lg hover:from-[#79caed]
-						hover:to-[#10495f] focus:outline-none focus:ring-2 focus:ring-[#79caed] focus:ring-offset-2
-						 focus:ring-offset-gray-900 transition duration-200"
+        className="mt-5 w-full py-3 px-4 bg-primary/55 
+						font-bold rounded-lg flex justify-center shadow-lg hover:bg-[#1e3a8a] hover:shadow-xl transition duration-200"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         type="submit"

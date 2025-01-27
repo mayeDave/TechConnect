@@ -9,6 +9,7 @@ import ChatPage from "./pages/ChatPage"
 import CollaborationPage from "./pages/CollaborationPage"
 import TechNewsPage from "./pages/TechNewsPage"
 import TechArticlesPage from "./pages/TechArticlesPage"
+import NotFoundPage from "./pages/NotFoundPage"
 import LoginPage from "./pages/auth/LoginPage"
 import SignupPage from "./pages/auth/SignupPage"
 import EmailVerificationPage from "./pages/auth/EmailVerificationPage"
@@ -81,6 +82,7 @@ function App() {
         <Route path="/collaboration" element={<ProtectedRoute><CollaborationPage /></ProtectedRoute>} />
         <Route path="/tech-news" element={<TechNewsPage />} />
         <Route path="/tech-articles" element={<TechArticlesPage />} />
+        <Route path='/*' element={<NotFoundPage />} />
 
       </Routes>
       <Toaster />

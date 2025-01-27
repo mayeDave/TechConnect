@@ -28,7 +28,7 @@ const ForgotPasswordForm = () => {
       <div className="px-6 py-3">
         {!isSubmitted ? (
           <form onSubmit={handleSubmit}>
-            <p className="text-gray-300 mb-6 text-center">
+            <p className="bg-gradient-to-r from-base-content to-base-content/45 text-transparent bg-clip-text mb-6 text-center">
               Enter your email address and we'll send you a link to reset your
               password.
             </p>
@@ -41,10 +41,8 @@ const ForgotPasswordForm = () => {
               required
             />
             <motion.button
-              className="w-full py-3 px-4 bg-gradient-to-r from-[#1e3a8a] to-[#10495f] text-white 
-						font-bold rounded-lg shadow-lg hover:from-[#79caed]
-						hover:to-[#10495f] focus:outline-none focus:ring-2 focus:ring-[#79caed] focus:ring-offset-2
-						 focus:ring-offset-gray-900 transition duration-200"
+              className="mt-5 w-full py-3 px-4 bg-primary/55 
+						font-bold rounded-lg flex justify-center shadow-lg hover:bg-[#1e3a8a] hover:shadow-xl transition duration-200"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
@@ -63,11 +61,11 @@ const ForgotPasswordForm = () => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
-              className="w-16 h-16 bg-[#79caed] rounded-full flex items-center justify-center mx-auto mb-4"
+              className="w-16 h-16 bg-[#1e3a8a] rounded-full flex items-center justify-center mx-auto mb-4"
             >
-              <Mail className="h-8 w-8 text-white" />
+              <Mail className="h-8 w-8" />
             </motion.div>
-            <p className="text-gray-300 mb-6">
+            <p className="bg-gradient-to-r from-base-content to-base-content/45 text-transparent bg-clip-text text-center mb-6">
               If an account exists for {email}, you will receive a password
               reset link shortly.
             </p>
@@ -78,7 +76,7 @@ const ForgotPasswordForm = () => {
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center w-full">
         <Link
           to={"/login"}
-          className="text-sm text-[#79caed] hover:underline flex items-center"
+          className="text-sm font-semibold  hover:underline flex items-center"
         >
           <ArrowLeft className="h-4 w-4 mr-2" /> Back to Login
         </Link>

@@ -79,16 +79,14 @@ const EmailVerificationForm = () => {
 								value={digit}
 								onChange={(e) => handleChange(index, e.target.value)}
 								onKeyDown={(e) => handleKeyDown(index, e)}
-								className='w-12 h-12 text-center text-2xl font-bold bg-gray-700 text-white border-2 border-gray-600 rounded-lg focus:border-[#79caed] focus:outline-none'
+								className='w-12 h-12 text-center text-2xl font-boldbg-transparent rounded-lg border border-gray-700 focus:border-base-100 focus:ring-2 focus:ring-base-100 text-white placeholder-base-content transition duration-200 cursor-pointer'
 							/>
 						))}
 					</div>
 					
 					<motion.button
-        className="mt-5 w-full py-3 px-4 bg-gradient-to-r from-[#1e3a8a] to-[#10495f] text-white 
-						font-bold rounded-lg shadow-lg hover:from-[#79caed]
-						hover:to-[#10495f] focus:outline-none focus:ring-2 focus:ring-[#79caed] focus:ring-offset-2
-						 focus:ring-offset-gray-900 transition duration-200"
+        className="mt-5 w-full py-3 px-4 bg-primary/55 
+						font-bold rounded-lg flex justify-center shadow-lg hover:bg-[#1e3a8a] hover:shadow-xl transition duration-200"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         type="submit"

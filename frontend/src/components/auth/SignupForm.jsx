@@ -17,7 +17,7 @@ const SignupForm = () => {
   
 
   const navigate = useNavigate();
-  const { signup, error, isLoading } = useAuthStore();
+  const { signup, isLoading } = useAuthStore();
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -79,7 +79,7 @@ const SignupForm = () => {
       />
       <span
         onClick={togglePasswordVisibility}
-        className="absolute right-14 top-1/2 transform translate-y-[-200%] cursor-pointer text-base"
+        className="absolute right-14 top-1/2 transform translate-y-[-190%] cursor-pointer text-base"
       >
         {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
       </span>
@@ -90,10 +90,8 @@ const SignupForm = () => {
 
 
 <motion.button
-						className='mt-5 w-full py-3 px-4 bg-primary/30
-						font-bold rounded-lg shadow-lg hover:from-[#79caed]
-						hover:to-[#10495f] focus:outline-none focus:ring-2 focus:ring-[#79caed] focus:ring-offset-2
-						 focus:ring-offset-gray-900 transition duration-200'
+						className="mt-5 w-full py-3 px-4 bg-primary/55 
+						font-bold rounded-lg flex justify-center shadow-lg hover:bg-[#1e3a8a] hover:shadow-xl transition duration-200"
 						whileHover={{ scale: 1.02 }}
 						whileTap={{ scale: 0.98 }}
 						type='submit'

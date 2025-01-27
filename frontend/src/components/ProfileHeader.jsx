@@ -1,11 +1,22 @@
-import { useState, useEffect, useParams } from "react";
+import { useState, useEffect } from "react";
 import { Camera, MapPin, UserCheck, UserPlus, X, Clock } from "lucide-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useProfileStore } from "../store/useProfileStore";
+import { useNavigate } from "react-router-dom";
+import { useChatStore } from "../store/useChatStore";
+import { useAuthStore } from "../store/useAuthStore";
 
 const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState({});
+  const navigate = useNavigate(); // For navigation
+  const { setSelectedUser } = useChatStore(); // Chat store function to set the selected user
+  const { onlineUsers } = useAuthStore();
+
+  const handleSendMessage = () => {
+    setSelectedUser(userData); // Set the selected user in the chat store
+    navigate("/chat"); // Navigate to the ChatPage
+  };
 
 	 const {
     connectionStatus,
@@ -59,7 +70,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
 
       case "pending":
         return (
-          <button className={`${baseClass} bg-yellow-500 hover:bg-yellow-600`}>
+          <button className={`${baseClass} bg-yellow-500 px-2 m-1 py-3 font-bold w-full hover:bg-yellow-600`}>
             <Clock size={20} className="mr-2" />
             Pending
           </button>
@@ -87,7 +98,7 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
         return (
           <button
             onClick={() => sendConnectionRequest(userData._id)}
-            className={`${baseClass} bg-primary hover:bg-primary-dark`}
+            className={`${baseClass} bg-base-100 px-2 m-1 py-3 font-bold w-full hover:bg-primary-dark`}
           >
             <UserPlus size={20} className="mr-2" />
             Connect
@@ -122,14 +133,23 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
       {/* Profile Info */}
       <div className="p-4">
         <div className="relative -mt-20 mb-4">
+          <div className="relative">
           <LazyLoadImage
             className="w-32 h-32 rounded-full mx-auto object-cover"
             src={editedData.profilePicture || userData.profilePicture || "/avatar.png"}
             alt={userData.name}
           />
+          {onlineUsers?.includes(userData._id) && (
+                <span
+                  className="absolute bottom-1/4 right-1/2 transform translate-x-16 size-3 bg-green-500 
+                  rounded-full ring-2 ring-zinc-900"
+                />
+              )}
+          </div>
+          
           {isEditing && (
             <label className="absolute bottom-0 right-1/2 transform translate-x-16 bg-base-100 p-2 rounded-full shadow cursor-pointer">
-              <Camera size={20} />
+              <Camera size={25} />
               <input
                 type="file"
                 className="hidden"
@@ -158,10 +178,10 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
               type="text"
               value={editedData.headline ?? userData.headline}
               onChange={(e) => setEditedData({ ...editedData, headline: e.target.value })}
-              className="text-base-content bg-base-100 text-center w-full"
+              className=" bg-base-100 text-center w-full"
             />
           ) : (
-            <p className="text-base-content/70">{userData.headline}</p>
+            <p>{userData.headline}</p>
           )}
 
           <div className="flex justify-center items-center mt-2">
@@ -171,19 +191,31 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
                 type="text"
                 value={editedData.location ?? userData.location}
                 onChange={(e) => setEditedData({ ...editedData, location: e.target.value })}
-                className="text-base-content/70 bg-base-100 text-center"
+                className="bg-base-100 text-center"
               />
             ) : (
-              <span className="text-gray-600">{userData.location}</span>
+              <span>{userData.location}</span>
             )}
           </div>
         </div>
+
+        {/* Send Message Button */}
+        {!isOwnProfile && (
+          <div className="flex justify-center my-4">
+            <button
+              onClick={handleSendMessage}
+              className="text-white bg-blue-500 hover:bg-blue-600 px-2 m-1 py-3 font-bold w-full rounded-full"
+            >
+              Send Message
+            </button>
+          </div>
+        )}
 
         {/* Edit Button or Connection Status */}
         {isOwnProfile ? (
           isEditing ? (
             <button
-              className="w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-primary-dark transition duration-300"
+              className="w-full bg-base-200 py-2 px-4 rounded-full hover:bg-primary-dark transition duration-300"
               onClick={handleSave}
             >
               Save Profile
@@ -191,13 +223,13 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
           ) : (
             <button
               onClick={() => setIsEditing(true)}
-              className="w-full bg-primary text-white py-2 px-4 rounded-full hover:bg-primary-dark transition duration-300"
+              className="w-full bg-base-200 py-2 m-1 px-4 rounded-full hover:bg-primary-dark transition duration-300"
             >
               Edit Profile
             </button>
           )
         ) : (
-          <div className="flex justify-center">{renderConnectionButton()}</div>
+          <div className="flex justify-center ">{renderConnectionButton()}</div>
         )}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { usePostStore } from "../store/usePostStore";
 
 const PostCreation = ({ user }) => {
-    const { createPost, isLoading } = usePostStore();
+    const { createPost, isCreating } = usePostStore();
 
     const [content, setContent] = useState("");
     const [image, setImage] = useState(null);
@@ -59,7 +59,7 @@ const PostCreation = ({ user }) => {
             />
             <textarea
                 placeholder="What's on your mind?"
-                className="w-full p-4 rounded-lg bg-base-content/70 focus:outline-none text-white placeholder:text-base-300 resize-none transition-colors duration-200 min-h-[100px]"
+                className="w-full cursor-pointer p-4 rounded-lg bg-base-content/70 focus:outline-none text-white placeholder:text-base-300 resize-none transition-colors duration-200 min-h-[100px]"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
             />
@@ -95,14 +95,14 @@ const PostCreation = ({ user }) => {
             {/* Share Button */}
             <button
                 className={`rounded-lg px-5 py-2 font-semibold transition-colors duration-200 ${
-                    isLoading
+                    isCreating
                         ? "bg-base-100 cursor-not-allowed"
                         : "bg-base-100 hover:bg-base-200"
                 }`}
                 onClick={handlePostCreation}
-                disabled={isLoading}
+                disabled={isCreating}
             >
-                {isLoading ? <Loader className="size-5 animate-spin" /> : "Share"}
+                {isCreating ? <Loader className="size-5 animate-spin" /> : "Share"}
             </button>
         </div>
     </div>

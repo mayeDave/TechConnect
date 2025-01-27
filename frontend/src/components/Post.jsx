@@ -10,9 +10,9 @@ import { useAuthStore } from "../store/useAuthStore";
 
 const Post = ({ post }) => {
 	
-	const { deletePost, likePost, addComment, isLoading } = usePostStore();
+	const { deletePost, likePost, addComment, isDeleting } = usePostStore();
 
-	const { authUser } = useAuthStore();
+	const { authUser, onlineUsers } = useAuthStore();
 
 
 	const [showComments, setShowComments] = useState(false);
@@ -59,13 +59,26 @@ const Post = ({ post }) => {
 		<div className="flex items-center justify-between mb-4">
 			{/* Author Info */}
 			<div className="flex items-center">
-				<Link to={`/profile/${post?.author?.username}`}>
+				{/* <Link to={`/profile/${post?.author?.username}`}>
 					<LazyLoadImage
 						src={post?.author?.profilePicture || "/avatar.png"}
 						alt={post?.author?.name}
 						className="w-10 h-10 rounded-full shadow-md mr-3"
 					/>
-				</Link>
+				</Link> */}
+			<Link to={`/profile/${post?.author?.username}`} className="relative mr-3">
+              <LazyLoadImage
+                src={post?.author?.profilePicture || "/avatar.png"}
+                alt={post?.author?.name}
+                className="size-12 object-cover rounded-full"
+              />
+              {onlineUsers?.includes(post?.author?._id) && (
+                <span
+                  className="absolute bottom-0 right-0 size-3 bg-green-500 
+                  rounded-full ring-2 ring-zinc-900"
+                />
+              )}
+            </Link>
 				<div>
 					<Link to={`/profile/${post?.author?.username}`}>
 						<h3 className="text-content-base font-bold">{post?.author?.name}</h3>
@@ -82,7 +95,7 @@ const Post = ({ post }) => {
 					onClick={handleDeletePost}
 					className="text-red-500 hover:text-red-600 font-bold text-xl transition-colors duration-200"
 				>
-					{isLoading ? <Loader size={18} className="animate-spin" /> : <Trash2 size={18} />}
+					{isDeleting ? <Loader size={18} className="animate-spin" /> : <Trash2 size={18} />}
 				</button>
 			)}
 		</div>

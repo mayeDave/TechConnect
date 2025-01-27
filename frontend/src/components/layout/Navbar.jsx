@@ -126,6 +126,12 @@ const Navbar = () => {
 						<Link to={'/collaboration'}>Collaborate</Link>
 					  </li>
 					  <li>
+						<Link to={'/tech-news'}>Tech News</Link>
+					  </li>
+					  <li>
+						<Link to={'/tech-articles'}>Tech Articles</Link>
+					  </li>
+					  <li>
 						<Link to={'/settings'}>Change Theme</Link>
 					  </li>
 					</ul>
@@ -159,13 +165,13 @@ const Navbar = () => {
 			  <>
 				<Link
 				  to="/login"
-				  className="btn btn-ghost border border-white text-white hover:bg-[#1e3a8a] transition"
+				  className="btn btn-primary text-lg text-white hover:bg-[#1e3a8a] transition"
 				>
 				  Sign In
 				</Link>
 				<Link
 				  to="/signup"
-				  className="btn btn-primary bg-[#1e3a8a] text-white px-4 py-2 rounded-full hover:bg-[#00d9ff] transition"
+				  className="btn btn-primary text-white text-lg px-4 py-2 rounded-full hover:bg-[#1e3a8a] transition"
 				>
 				  Join now
 				</Link>

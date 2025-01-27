@@ -33,7 +33,7 @@ const EducationSection = ({ userData, isOwnProfile, onSave }) => {
 	};
 
 	return (
-		<div className='bg-white shadow rounded-lg p-6 mb-6'>
+		<div className='bg-base-300 shadow rounded-lg p-6 mb-6'>
 			<h2 className='text-xl font-semibold mb-4'>Education</h2>
 			{educations.map((edu) => (
 				<div key={edu._id} className='mb-4 flex justify-between items-start'>
@@ -41,8 +41,8 @@ const EducationSection = ({ userData, isOwnProfile, onSave }) => {
 						<School size={20} className='mr-2 mt-1' />
 						<div>
 							<h3 className='font-semibold'>{edu.fieldOfStudy}</h3>
-							<p className='text-gray-600'>{edu.school}</p>
-							<p className='text-gray-500 text-sm'>
+							<p>{edu.school}</p>
+							<p className='text-sm'>
 								{edu.startYear} - {edu.endYear || "Present"}
 							</p>
 						</div>
@@ -86,7 +86,7 @@ const EducationSection = ({ userData, isOwnProfile, onSave }) => {
 					/>
 					<button
 						onClick={handleAddEducation}
-						className='bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark transition duration-300'
+						className='bg-base-200 py-2 px-4 rounded'
 					>
 						Add Education
 					</button>
@@ -98,15 +98,14 @@ const EducationSection = ({ userData, isOwnProfile, onSave }) => {
 					{isEditing ? (
 						<button
 							onClick={handleSave}
-							className='mt-4 bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark
-							 transition duration-300'
+							className='mt-4 bg-base-200 py-2 px-4 rounded'
 						>
 							Save Changes
 						</button>
 					) : (
 						<button
 							onClick={() => setIsEditing(true)}
-							className='mt-4 text-primary hover:text-primary-dark transition duration-300'
+							className='mt-4 bg-base-200 py-2 px-4 rounded'
 						>
 							Edit Education
 						</button>

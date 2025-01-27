@@ -9,7 +9,7 @@ const AboutSection = ({ userData, isOwnProfile, onSave }) => {
 	};
   
 	return (
-	  <div className="bg-white shadow rounded-lg p-6 mb-6">
+	  <div className="bg-base-300 shadow rounded-lg p-6 mb-6">
 		<h2 className="text-xl font-semibold mb-4">About</h2>
   
 		{!isEditing ? (
@@ -29,7 +29,7 @@ const AboutSection = ({ userData, isOwnProfile, onSave }) => {
 			className={`mt-2 ${
 			  isEditing
 				? "bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark"
-				: "text-primary hover:text-primary-dark"
+				: "bg-base-200 py-1 px-6 rounded hover:text-primary-dark"
 			} transition duration-300`}
 		  >
 			{isEditing ? "Save" : "Edit"}

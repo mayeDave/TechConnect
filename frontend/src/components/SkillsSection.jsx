@@ -23,13 +23,13 @@ const SkillsSection = ({ userData, isOwnProfile, onSave }) => {
 	};
 
 	return (
-		<div className='bg-white shadow rounded-lg p-6'>
+		<div className='bg-base-300 shadow rounded-lg p-6'>
 			<h2 className='text-xl font-semibold mb-4'>Skills</h2>
 			<div className='flex flex-wrap'>
 				{skills.map((skill, index) => (
 					<span
 						key={index}
-						className='bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm mr-2 mb-2 flex items-center'
+						className='border-base-100 border-2 font-bold px-3 py-1 rounded-full text-x mr-2 mb-2 flex items-center'
 					>
 						{skill}
 						{isEditing && (
@@ -52,7 +52,7 @@ const SkillsSection = ({ userData, isOwnProfile, onSave }) => {
 					/>
 					<button
 						onClick={handleAddSkill}
-						className='bg-primary text-white py-2 px-4 rounded-r hover:bg-primary-dark transition duration-300'
+						className='bg-base-200py-2 px-4 rounded-r hover:bg-primary-dark transition duration-300'
 					>
 						Add Skill
 					</button>
@@ -64,14 +64,14 @@ const SkillsSection = ({ userData, isOwnProfile, onSave }) => {
 					{isEditing ? (
 						<button
 							onClick={handleSave}
-							className='mt-4 bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark transition duration-300'
+							className='mt-4 bg-base-200 py-2 px-4 rounded hover:bg-primary-dark transition duration-300'
 						>
 							Save Changes
 						</button>
 					) : (
 						<button
 							onClick={() => setIsEditing(true)}
-							className='mt-4 text-primary hover:text-primary-dark transition duration-300'
+							className='mt-4 bg-base-200 py-2 px-4 rounded hover:text-primary-dark transition duration-300'
 						>
 							Edit Skills
 						</button>

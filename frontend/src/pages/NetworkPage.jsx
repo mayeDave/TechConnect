@@ -69,7 +69,7 @@ const NetworkPage = () => {
           {connections.length > 0 && (
             <div className="mb-8">
               <div className="bg-white rounded-lg shadow p-6 mb-6">
-                <h2 className="text-xl font-semibold mb-4">My Connections</h2>
+                <h2 className="text-xl text-gray-700 font-semibold mb-4">My Connections</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {connections.map((connection) => (
                     <UserCard
@@ -86,7 +86,7 @@ const NetworkPage = () => {
           {/* People You May Know Section */}
           {recommendedUsers?.length > 0 && (
             <div className="bg-gray-100 rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-4">
+              <h2 className="text-xl text-gray-700 font-semibold mb-4">
                 People You May Know
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

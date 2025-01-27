@@ -39,7 +39,6 @@ router.get("/multiple", async (req, res) => {
     const { page = 1 } = req.query;
     const urls = [
       "https://feeds.bbci.co.uk/news/technology/rss.xml",
-      "https://www.theguardian.com/technology/rss",
       "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
       "https://mashable.com/feeds/rss/tech",
       "https://feeds.arstechnica.com/arstechnica/technology-lab",

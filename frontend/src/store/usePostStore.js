@@ -4,16 +4,19 @@ import { axiosInstance } from "../lib/axios";
 export const usePostStore = create((set, get) => ({
     posts: [], // List of all posts
     post: null, // Single post details
-    isLoading: false,
+    isDeleting: false,
+    isCreating: false,
+    isFetchingPosts: false,
+    isFetchingPost: false,
     error: null,
     message: null,
 
     // Fetch all posts for the homepage
     fetchPosts: async () => {
-        set({ isLoading: true });
+        set({ isFetchingPosts: true });
         try {
             const res = await axiosInstance.get("/posts");
-            set({ posts: res.data, isLoading: false, error: null });
+            set({ posts: res.data, isFetchingPosts: false, error: null });
         } catch (error) {
             set({ error: error.response?.data?.message || "Failed to fetch posts", isLoading: false });
         }
@@ -21,10 +24,10 @@ export const usePostStore = create((set, get) => ({
 
     // Fetch a single post for the post page
     fetchPost: async (postId) => {
-        set({ isLoading: true });
+        set({ isFetchingPost: true });
         try {
             const res = await axiosInstance.get(`/posts/${postId}`);
-            set({ post: res.data, isLoading: false, error: null });
+            set({ post: res.data, isFetchingPost: false, error: null });
         } catch (error) {
             set({ error: error.response?.data?.message || "Failed to fetch post", isLoading: false });
         }
@@ -32,13 +35,13 @@ export const usePostStore = create((set, get) => ({
 
     // Create a new post
     createPost: async (postData) => {
-        set({ isLoading: true });
+        set({ isCreating: true });
         try {
             const res = await axiosInstance.post("/posts/create", postData );
             //update the post list and render immediately
             set((state) => ({
                 posts: [...state.posts, res.data],
-                isLoading: false,
+                isCreating: false,
                 message: "Post created successfully",
             }))
             get().fetchPosts();
@@ -49,12 +52,12 @@ export const usePostStore = create((set, get) => ({
 
     // Delete a post
     deletePost: async (postId) => {
-        set({ isLoading: true });
+        set({ isDeleting: true });
         try {
             await axiosInstance.delete(`/posts/delete/${postId}`);
             set((state) => ({
                 posts: state.posts.filter((post) => post._id !== postId),
-                isLoading: false,
+                isDeleting: false,
                 message: "Post deleted successfully",
             }));
         } catch (error) {

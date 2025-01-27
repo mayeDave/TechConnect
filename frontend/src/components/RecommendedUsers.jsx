@@ -85,7 +85,7 @@ const RecommendedUsers = ({ user }) => {
         );
       case "connected":
         return (
-          <button className="px-2 m-1 py-1 font-bold rounded-full w-full text-xs bg-green-500 text-white flex items-center justify-center cursor-not-allowed" disabled>
+          <button className="px-2 m-1 py-1 font-bold rounded-full w-full text-sm bg-green-500 text-white flex items-center justify-center cursor-not-allowed" disabled>
             <UserCheck size={16} className="mr-1" />
             Connected
           </button>
@@ -109,8 +109,8 @@ const RecommendedUsers = ({ user }) => {
           className="w-24 h-24 rounded-full object-cover mb-4"
         />
         <div className="flex flex-col items-center">
-          <h3 className="text-center font-semibold text-sm">{user.name}</h3>
-          <p className="text-gray-600 text-center">{user.headline}</p>
+          <h3 className="text-center font-bold text-lg">{user.name}</h3>
+          <p className="text-gray-600 text-center font-semibold">{user.headline}</p>
           <p className="text-sm text-gray-500 mt-2">{user.connections?.length} connections</p>
         </div>
       </Link>

@@ -7,7 +7,7 @@ import Post from "../components/Post";
 
 const PostPage = () => {
     const { postId } = useParams();
-    const { post, fetchPost, isLoading, error } = usePostStore();
+    const { post, fetchPost, isFetchingPost, error } = usePostStore();
 
 	const { authUser } = useAuthStore();
 
@@ -15,7 +15,7 @@ const PostPage = () => {
         fetchPost(postId);
     }, [postId, fetchPost]);
 
-    if (isLoading) return <div>Loading post...</div>;
+    if (isFetchingPost) return <div>Loading post...</div>;
     if (error) return <div>Error: {error}</div>;
     if (!post) return <div>Post not found</div>;
 

@@ -47,7 +47,7 @@ const ExperienceSection = ({ userData, isOwnProfile, onSave }) => {
 	};
 
 	return (
-		<div className='bg-white shadow rounded-lg p-6 mb-6'>
+		<div className='bg-base-300 shadow rounded-lg p-6 mb-6'>
 			<h2 className='text-xl font-semibold mb-4'>Experience</h2>
 			{experiences.map((exp) => (
 				<div key={exp._id} className='mb-4 flex justify-between items-start'>
@@ -55,11 +55,11 @@ const ExperienceSection = ({ userData, isOwnProfile, onSave }) => {
 						<Briefcase size={20} className='mr-2 mt-1' />
 						<div>
 							<h3 className='font-semibold'>{exp.title}</h3>
-							<p className='text-gray-600'>{exp.company}</p>
-							<p className='text-gray-500 text-sm'>
+							<p>{exp.company}</p>
+							<p className='text-sm'>
 								{formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : "Present"}
 							</p>
-							<p className='text-gray-700'>{exp.description}</p>
+							<p>{exp.description}</p>
 						</div>
 					</div>
 					{isEditing && (
@@ -120,7 +120,7 @@ const ExperienceSection = ({ userData, isOwnProfile, onSave }) => {
 					/>
 					<button
 						onClick={handleAddExperience}
-						className='bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark transition duration-300'
+						className='bg-base-200 py-2 px-4 rounded'
 					>
 						Add Experience
 					</button>
@@ -132,14 +132,14 @@ const ExperienceSection = ({ userData, isOwnProfile, onSave }) => {
 					{isEditing ? (
 						<button
 							onClick={handleSave}
-							className='mt-4 bg-primary text-white py-2 px-4 rounded hover:bg-primary-dark transition duration-300'
+							className='mt-4 bg-base-200 py-2 px-4 rounded'
 						>
 							Save Changes
 						</button>
 					) : (
 						<button
 							onClick={() => setIsEditing(true)}
-							className='mt-4 text-primary hover:text-primary-dark transition duration-300'
+							className='bg-base-200 py-2 px-4 rounded mt-4'
 						>
 							Edit Experiences
 						</button>

@@ -61,7 +61,7 @@ const LoginForm = () => {
 
       <motion.button
         className="mt-5 w-full py-3 px-4 bg-primary/55 
-						font-bold rounded-lg shadow-lg hover:bg-primary/80 hover:shadow-xl transition duration-200"
+						font-bold rounded-lg flex justify-center shadow-lg hover:bg-[#1e3a8a] hover:shadow-xl transition duration-200"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         type="submit"

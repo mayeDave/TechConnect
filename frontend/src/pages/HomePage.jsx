@@ -9,11 +9,12 @@ import Post from "../components/Post";
 import { Users } from "lucide-react";
 import DisplayedUsers from "../components/DisplayedUsers";
 import PostSkeleton from "../components/skeletons/PostSkeleton";
+import DisplayedUsersSkeleton from "../components/skeletons/DisplayedUsersSkeleton";
 
 const HomePage = () => {
   const { authUser } = useAuthStore(); // Importing from authStore
   const { displayedUsers, fetchRecommendedUsers } = useNetworkStore(); // Importing from networkStore
-  const { posts, fetchPosts, isFetchingPost } = usePostStore(); // Placeholder for post store integration
+  const { posts, fetchPosts, isFetchingPosts } = usePostStore(); // Placeholder for post store integration
 
   useEffect(() => {
     fetchPosts();
@@ -21,7 +22,7 @@ const HomePage = () => {
   }, [fetchPosts, fetchRecommendedUsers]);
 
   // Skeleton loader for posts and sidebar
-  if (isFetchingPost) {
+  if (isFetchingPosts) {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <Sidebar user={authUser} />
@@ -29,18 +30,9 @@ const HomePage = () => {
 
         <PostSkeleton />
 
-        {/* Skeleton for Recommended Users */}
-        <div className="col-span-1 lg:col-span-1 hidden lg:block">
-          <div className="flex flex-col gap-4">
-            {[1, 2, 3].map((_, index) => (
-              <div key={index} className="flex gap-4 items-center">
-                <div className="skeleton h-10 w-10 rounded-full"></div>
-                <div className="skeleton h-6 w-32"></div>
-              </div>
-            ))}
-            <div className="skeleton h-10 w-full rounded"></div>
-          </div>
-        </div>
+        <DisplayedUsersSkeleton />
+
+        
       </div>
     );
   }

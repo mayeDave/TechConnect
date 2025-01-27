@@ -16,10 +16,6 @@ const ChatSideBar = () => {
     useEffect(() => {
         getUsers();
     }, [getUsers]);
-
-    //let online users be at the top when first loaded
-   const onlineUsersSorted = onlineUsers.sort((a, b) => onlineUsers.indexOf(a) - onlineUsers.indexOf(b));
-
    
 
     

@@ -4,7 +4,7 @@ import { axiosInstance } from "../lib/axios";
 import { io } from "socket.io-client";
 
 
-const BASE_URL = "http://localhost:6060";
+const BASE_URL = "https://techconnect-1fnb.onrender.com";
 
    export const useAuthStore = create((set, get) => ({
         authUser: null,

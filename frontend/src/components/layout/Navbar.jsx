@@ -120,7 +120,7 @@ const Navbar = () => {
 				  <span className="text-x hidden md:block">Maye</span>
 				  </Link>
   
-				  <div className="dropdown dropdown-hover">
+				  <div className="dropdown dropdown-hover dropdown-end">
 				  <div tabIndex={0} role="button" className="flex flex-col items-center relative hover:text-base-content/80 transition duration-200 ">
 					  <AlignJustify size={24} className=" font-bold" />
 					  <span className="text-x hidden md:block">Explore</span>

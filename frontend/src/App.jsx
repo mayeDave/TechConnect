@@ -81,9 +81,9 @@ function App() {
         <Route path="/profile/:username" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} /> 
         <Route path="/chat" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
         <Route path="/collaboration" element={<ProtectedRoute><CollaborationPage /></ProtectedRoute>} />
-        <Route path="/tech-news" element={<TechNewsPage />} />
-        <Route path="/tech-articles" element={<TechArticlesPage />} />
-        <Route path="/ai" element={<AiPage />} />
+        <Route path="/tech-news" element={<ProtectedRoute><TechNewsPage /></ProtectedRoute>} />
+        <Route path="/tech-articles" element={<ProtectedRoute><TechArticlesPage /></ProtectedRoute>} />
+        <Route path="/ai" element={<ProtectedRoute><AiPage /></ProtectedRoute>} />
         <Route path='/*' element={<NotFoundPage />} />
 
       </Routes>

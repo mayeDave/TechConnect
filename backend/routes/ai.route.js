@@ -1,13 +1,14 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
+import { protectRoute } from "../middleware/auth.middleware.js";
 
 dotenv.config();
 const router = express.Router();
 
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
 
-router.post("/ai-chat", async (req, res) => {
+router.post("/ai-chat", protectRoute, async (req, res) => {
     try {
         const { prompt } = req.body;
 

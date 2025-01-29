@@ -1,10 +1,11 @@
 import express from "express";
 import { fetchRSSFeed, fetchMultipleFeeds } from "../services/rss.service.js";
+import { protectRoute } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
 // Single RSS Feed
-router.get("/", async (req, res) => {
+router.get("/", protectRoute, async (req, res) => {
   try {
     const { page = 1 } = req.query;
     const url = "http://feeds.bbci.co.uk/news/technology/rss.xml"; // BBC RSS Feed
@@ -34,7 +35,7 @@ router.get("/", async (req, res) => {
 });
 
 // Multiple RSS Feeds
-router.get("/multiple", async (req, res) => {
+router.get("/multiple", protectRoute, async (req, res) => {
   try {
     const { page = 1 } = req.query;
     const urls = [
@@ -77,7 +78,7 @@ router.get("/multiple", async (req, res) => {
 });
 
 // Programming Articles Route
-router.get("/programming", async (req, res) => {
+router.get("/programming", protectRoute, async (req, res) => {
   try {
     const { page = 1 } = req.query;
     const urls = [

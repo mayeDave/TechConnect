@@ -6,6 +6,7 @@ export const usePostStore = create((set, get) => ({
     post: null, // Single post details
     isDeleting: false,
     isCreating: false,
+    isCommenting: false,
     isFetchingPosts: false,
     isFetchingPost: false,
     error: null,
@@ -106,12 +107,15 @@ export const usePostStore = create((set, get) => ({
 
     // Add a comment to a post
     addComment: async (postId, commentContent) => {
+        set({ isCommenting: true });
         try {
             const res = await axiosInstance.post(`/posts/${postId}/comment`, { content: commentContent });
             set((state) => ({
                 posts: state.posts.map((post) =>
                     post._id === postId ? { ...post, comments: [...post.comments, res.data] } : post
                 ),
+                isCommenting: false,
+                message: "Comment added successfully",
             }));
         } catch (error) {
             set({ error: error.response?.data?.message || "Failed to add comment" });

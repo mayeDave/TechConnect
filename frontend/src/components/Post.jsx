@@ -10,7 +10,7 @@ import { useAuthStore } from "../store/useAuthStore";
 
 const Post = ({ post }) => {
 	
-	const { deletePost, likePost, addComment, isDeleting } = usePostStore();
+	const { deletePost, likePost, addComment, isCommenting, isDeleting } = usePostStore();
 
 	const { authUser, onlineUsers } = useAuthStore();
 
@@ -172,9 +172,9 @@ const Post = ({ post }) => {
 				<button
 					type="submit"
 					className="bg-[#00d9ff] text-white p-3 rounded-r-full hover:bg-[#00b4cc] transition duration-300"
-					disabled={isLoading}
+					disabled={isCommenting}
 				>
-					{isLoading ? <Loader size={18} className="animate-spin" /> : <Send size={18} />}
+					{isCommenting ? <Loader size={18} className="animate-spin" /> : <Send size={18} />}
 				</button>
 			</form>
 		</div>

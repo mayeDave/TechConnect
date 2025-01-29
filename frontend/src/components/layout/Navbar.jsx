@@ -3,7 +3,7 @@ import { useNotificationStore } from "../../store/useNotificationStore";
 import useNetworkStore from "../../store/useNetworkStore";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Bell, Home, LogOut, User, Users,  MessageCircleMore, AlignJustify } from "lucide-react";
+import { Bell, Home, LogOut, User, Users, Cpu, MessageCircleMore, AlignJustify } from "lucide-react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Navbar = () => {
@@ -115,6 +115,10 @@ const Navbar = () => {
 					<User size={24} className="font-bold" />
 					<span className="text-x hidden md:block">Account</span>
 				  </Link>
+				  <Link to={`/ai`} className="flex flex-col items-center hover:text-base-content/80 transition duration-200">
+				  <Cpu size={24}className="font-bold" />
+				  <span className="text-x hidden md:block">Maye</span>
+				  </Link>
   
 				  <div className="dropdown dropdown-hover">
 				  <div tabIndex={0} role="button" className="flex flex-col items-center relative hover:text-base-content/80 transition duration-200 ">
@@ -134,16 +138,12 @@ const Navbar = () => {
 					  <li>
 						<Link to={'/settings'}>Change Theme</Link>
 					  </li>
+					  <li>
+						<button onClick={() => logout()}>Logout</button>
+					  </li>
 					</ul>
 				  </div>
   
-				  <button
-					className="flex flex-col items-center relative hover:text-base-content/80 transition duration-200"
-					onClick={() => logout()}
-				  >
-					<LogOut size={24} className="font-bold" />
-					<span className="text-x hidden md:block">Logout</span>
-				  </button>
 				</>
 			  ) : (
 				<>

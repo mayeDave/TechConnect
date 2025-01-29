@@ -12,6 +12,7 @@ import notificationRoutes from "./routes/notification.route.js";
 import connectionRoutes from "./routes/connection.route.js";
 import messageRoutes from "./routes/message.route.js";
 import rssRoutes from "./routes/rss.route.js";
+import aiRoutes from "./routes/ai.route.js";
 
 import { app, server } from "./config/socket.js";
 
@@ -38,6 +39,7 @@ app.use("/api/v1/notifications", notificationRoutes);
 app.use("/api/v1/connections", connectionRoutes);
 app.use("/api/v1/messages", messageRoutes);
 app.use("/api/v1/rss", rssRoutes);
+app.use("/api/v1/ai", aiRoutes);
 
 
 

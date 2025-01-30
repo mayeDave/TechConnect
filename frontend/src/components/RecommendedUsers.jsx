@@ -110,7 +110,7 @@ const RecommendedUsers = ({ user }) => {
         />
         <div className="flex flex-col items-center">
           <h3 className="text-center font-bold text-lg">{user.name}</h3>
-          <p className="text-gray-600 text-center font-semibold">{user.headline}</p>
+          <p className="text-gray-600 text-center font-semibold truncate overflow-hidden whitespace-nowrap">{user.headline}</p>
           <p className="text-sm text-gray-500 mt-2">{user.connections?.length} connections</p>
         </div>
       </Link>

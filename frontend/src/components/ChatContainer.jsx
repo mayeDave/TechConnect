@@ -1,48 +1,62 @@
-import { useEffect, useRef } from 'react'
-import { useChatStore } from "../store/useChatStore"
-import { useAuthStore } from "../store/useAuthStore"
-import MessageSkeleton from "./skeletons/MessageSkeleton"
-import ChatHeader from "./ChatHeader"
-import MessageInput from "./MessageInput"
-import { formatMessageTime } from "../lib/utils"
+import { useEffect, useRef } from "react";
+import { useChatStore } from "../store/useChatStore";
+import { useAuthStore } from "../store/useAuthStore";
+import MessageSkeleton from "./skeletons/MessageSkeleton";
+import ChatHeader from "./ChatHeader";
+import MessageInput from "./MessageInput";
+import { formatMessageTime } from "../lib/utils";
 
 const ChatContainer = () => {
-    const { messages, getMessages, isMessagesLoading, selectedUser, subscribeToMessages, unsubscribeFromMessages, } = useChatStore();
-    const { authUser } = useAuthStore();
-    const messageEndRef = useRef(null);
+  const {
+    messages,
+    getMessages,
+    isMessagesLoading,
+    selectedUser,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore();
+  const { authUser } = useAuthStore();
+  const messageEndRef = useRef(null);
 
-    useEffect(() => {
-      getMessages(selectedUser._id);
-  
-      subscribeToMessages();
-  
-      return () => unsubscribeFromMessages();
-    }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages]);
-  
-    useEffect(() => {
-      if (messageEndRef.current && messages) {
-        messageEndRef.current.scrollIntoView({ behavior: "smooth" });
-      }
-    }, [messages]);
+  useEffect(() => {
+    getMessages(selectedUser._id);
 
-    if (isMessagesLoading) {
-      return (
-        <div className="flex-1 flex flex-col overflow-auto">
-          <ChatHeader />
-          <MessageSkeleton />
-          <MessageInput />
-        </div>
-      );
+    subscribeToMessages();
+
+    return () => unsubscribeFromMessages();
+  }, [
+    selectedUser._id,
+    getMessages,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  ]);
+
+  useEffect(() => {
+    if (messageEndRef.current && messages) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  }, [messages]);
+
+  if (isMessagesLoading) {
+    return (
+      <div className="flex-1 flex flex-col overflow-auto">
+        <ChatHeader />
+        <MessageSkeleton />
+        <MessageInput />
+      </div>
+    );
+  }
   return (
     <div className="flex-1 flex flex-col overflow-auto">
-        <ChatHeader />
+      <ChatHeader />
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 ">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 ">
         {messages.map((message) => (
           <div
             key={message._id}
-            className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
+            className={`chat ${
+              message.senderId === authUser._id ? "chat-end" : "chat-start"
+            }`}
             ref={messageEndRef}
           >
             <div className=" chat-image avatar">
@@ -62,7 +76,13 @@ const ChatContainer = () => {
                 {formatMessageTime(message.createdAt)}
               </time>
             </div>
-            <div className="chat-bubble flex flex-col">
+            <div
+              className={`chat-bubble flex flex-col ${
+                message.senderId === authUser._id
+                  ? "bg-blue-500 text-white" // Sender (You)
+                  : "bg-gray-300 text-black" // Receiver
+              }`}
+            >
               {message.image && (
                 <img
                   src={message.image}
@@ -76,10 +96,9 @@ const ChatContainer = () => {
         ))}
       </div>
 
-        <MessageInput />
-
+      <MessageInput />
     </div>
-  )
-}
+  );
+};
 
-export default ChatContainer
+export default ChatContainer;

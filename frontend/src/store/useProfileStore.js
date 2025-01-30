@@ -6,6 +6,7 @@ import useNetworkStore from "./useNetworkStore"; // Import the network store
 export const useProfileStore = create((set, get) => ({
   userProfile: null,
   connectionStatus: null,
+  isUpdatingProfile: false,
   isLoading: false,
   error: null,
 
@@ -26,6 +27,7 @@ export const useProfileStore = create((set, get) => ({
 
   // Update profile
   updateProfile: async (updatedData) => {
+    set({ isUpdatingProfile: true });
     try {
       // Send the update request
       await axiosInstance.put("/users/profile", updatedData);
@@ -39,9 +41,11 @@ export const useProfileStore = create((set, get) => ({
           ...state.userProfile,
           ...updatedData, // Merge the updated data into the existing user profile
         },
+        isUpdatingProfile: false,
       }));
     } catch (error) {
       // Handle errors
+      set({ isUpdatingProfile: false });
       toast.error(error.response?.data?.message || "Failed to update profile");
     }
   },

@@ -24,7 +24,8 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
     acceptRequest,
     rejectRequest,
     removeConnection,
-	fetchConnectionStatus,
+	  fetchConnectionStatus,
+    isUpdatingProfile
   } = useProfileStore();
 
   useEffect(() => {
@@ -218,14 +219,14 @@ const ProfileHeader = ({ userData, onSave, isOwnProfile }) => {
               className="w-full bg-base-200 py-2 px-4 rounded-full hover:bg-primary-dark transition duration-300"
               onClick={handleSave}
             >
-              Save Profile
+               {isUpdatingProfile ? <Loader className="size-5 animate-spin" /> : "Save Profile"}
             </button>
           ) : (
             <button
               onClick={() => setIsEditing(true)}
               className="w-full bg-base-200 py-2 m-1 px-4 rounded-full hover:bg-primary-dark transition duration-300"
             >
-              Edit Profile
+              {isUpdatingProfile ? <Loader className="size-5 animate-spin" /> : "Edit Profile"}
             </button>
           )
         ) : (

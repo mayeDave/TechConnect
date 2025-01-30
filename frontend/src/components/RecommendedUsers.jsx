@@ -112,9 +112,10 @@ const RecommendedUsers = ({ user }) => {
       <h3 className="text-center font-bold text-lg">{user.name}</h3>
 
       {/* Headline with a fixed height to prevent resizing */}
-      <p className="text-gray-600 text-center font-semibold line-clamp-2 max-w-[90%] h-[40px]">
-        {user.headline}
-      </p>
+      <p className="text-gray-600 text-center font-semibold line-clamp-2 max-w-[90%] w-full min-w-0 overflow-hidden text-ellipsis break-words h-[40px] sm:h-[48px]">
+  {user.headline}
+</p>
+
 
       <p className="text-sm text-gray-500 mt-2">{user.connections?.length} connections</p>
     </div>

@@ -15,9 +15,10 @@ function UserCard({ user, isConnection }) {
   </Link>
 
   {/* Headline with fixed two-line truncation */}
-  <p className="text-gray-600 text-center font-semibold line-clamp-2 max-w-[90%] w-full min-w-0 overflow-hidden text-ellipsis break-words h-[40px] sm:h-[48px]">
+  <p className="text-gray-600 text-center font-semibold max-w-[90%] w-full min-w-0 overflow-hidden text-ellipsis break-words h-[40px] sm:h-[48px] leading-tight">
   {user.headline}
 </p>
+
 
 
   <p className="text-sm text-gray-500 mt-2">{user.connections?.length} connections</p>

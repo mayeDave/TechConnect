@@ -6,8 +6,9 @@ const FriendRequest = ({ request }) => {
   const { acceptRequest, rejectRequest } = useProfileStore();
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 flex items-center justify-between transition-all hover:shadow-md">
-      <div className="flex items-center gap-4">
+    <div className="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-center sm:justify-between transition-all hover:shadow-md">
+      {/* Profile & Info */}
+      <div className="flex items-center gap-4 w-full sm:w-auto">
         <Link to={`/profile/${request.sender?.username}`}>
           <LazyLoadImage
             src={request.sender?.profilePicture || "/avatar.png"}
@@ -24,15 +25,16 @@ const FriendRequest = ({ request }) => {
         </div>
       </div>
 
-      <div className="space-x-2">
+      {/* Buttons - Positioned in Column on Mobile, Row on Larger Screens */}
+      <div className="flex flex-col sm:flex-row w-full sm:w-auto mt-4 sm:mt-0 gap-2">
         <button
-          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors"
+          className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark transition-colors w-full sm:w-auto"
           onClick={() => acceptRequest(request._id)}
         >
           Accept
         </button>
         <button
-          className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
+          className="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors w-full sm:w-auto"
           onClick={() => rejectRequest(request._id)}
         >
           Reject
@@ -41,4 +43,5 @@ const FriendRequest = ({ request }) => {
     </div>
   );
 };
+
 export default FriendRequest;

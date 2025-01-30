@@ -101,21 +101,28 @@ const RecommendedUsers = ({ user }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 flex flex-col items-center transition-all hover:shadow-md">
-      <Link to={`/profile/${user.username}`} className="flex flex-col flex-grow min-w-0 text-slate-600 items-center">
-        <LazyLoadImage
-          src={user.profilePicture || "/avatar.png"}
-          alt={user.name}
-          className="w-24 h-24 rounded-full object-cover mb-4"
-        />
-        <div className="flex flex-col items-center">
-          <h3 className="text-center font-bold text-lg">{user.name}</h3>
-          <p className="text-gray-600 text-center font-semibold truncate overflow-hidden whitespace-nowrap">{user.headline}</p>
-          <p className="text-sm text-gray-500 mt-2">{user.connections?.length} connections</p>
-        </div>
-      </Link>
-      {renderButton()}
+    <div className="bg-white rounded-lg shadow p-4 flex flex-col items-center transition-all hover:shadow-md h-[320px]">
+  <Link to={`/profile/${user.username}`} className="flex flex-col flex-grow min-w-0 text-slate-600 items-center">
+    <LazyLoadImage
+      src={user.profilePicture || "/avatar.png"}
+      alt={user.name}
+      className="w-24 h-24 rounded-full object-cover mb-4"
+    />
+    <div className="flex flex-col items-center">
+      <h3 className="text-center font-bold text-lg">{user.name}</h3>
+
+      {/* Headline with a fixed height to prevent resizing */}
+      <p className="text-gray-600 text-center font-semibold line-clamp-2 max-w-[90%] h-[40px]">
+        {user.headline}
+      </p>
+
+      <p className="text-sm text-gray-500 mt-2">{user.connections?.length} connections</p>
     </div>
+  </Link>
+
+  {renderButton()}
+</div>
+
   );
 };
 

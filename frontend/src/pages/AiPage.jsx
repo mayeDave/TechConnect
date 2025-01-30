@@ -3,6 +3,8 @@ import { Send } from "lucide-react";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "../store/useAuthStore";
 import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 const AiPage = () => {
   const { authUser } = useAuthStore();
@@ -90,9 +92,28 @@ const AiPage = () => {
                   />
                 </div>
               </div>
-              <div className="chat-bubble">
-                <ReactMarkdown>{message.text}</ReactMarkdown>
-              </div>
+              <div className="chat-bubble break-words whitespace-pre-wrap">
+  <ReactMarkdown
+    components={{
+      code({ node, inline, className, children, ...props }) {
+        return inline ? (
+          <code className="bg-gray-200 p-1 rounded">{children}</code>
+        ) : (
+          <SyntaxHighlighter
+            style={dracula}
+            language="javascript"
+            PreTag="div"
+            className="p-2 rounded"
+          >
+            {String(children).replace(/\n$/, "")}
+          </SyntaxHighlighter>
+        );
+      },
+    }}
+  >
+    {message.text}
+  </ReactMarkdown>
+</div>;
             </div>
           ))}
         </div>

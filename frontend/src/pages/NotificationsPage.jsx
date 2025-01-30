@@ -107,7 +107,7 @@ const NotificationsPage = () => {
                   }`}
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex items-center space-x-4">
+                    <div className="flex flex-grow items-center space-x-4">
                       <Link to={`/profile/${notification?.relatedUser?.username}`}>
                         <LazyLoadImage
                           src={notification?.relatedUser?.profilePicture || "/avatar.png"}

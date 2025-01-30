@@ -24,7 +24,7 @@ export default function Sidebar({ user }) {
 			</div>
 
 			{/* User Info Section */}
-			<div className="pt-16 pb-4 text-center ">
+			<div className="pt-16 pb-4 px-3 text-center ">
 				<Link to={`/profile/${user.username}`} className="hover:underline">
 					<h2 className="text-xl hover:text-base-content font-bold">{user.name}</h2>
 				</Link>

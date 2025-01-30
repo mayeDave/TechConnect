@@ -97,19 +97,24 @@ const DisplayedUsers = ({ user }) => {
 
   return (
     <div className="flex items-center justify-between p-1 mb-4 bg-base-content/70 rounded-lg shadow-lg">
-      <Link to={`/profile/${user.username}`} className="flex items-center flex-grow">
-        <LazyLoadImage
-          src={user.profilePicture || "/avatar.png"}
-          alt={user.name}
-          className="w-12 h-12 object-cover rounded-full mr-3"
-        />
-        <div>
-          <h3 className="text-base-200 font-semibold text-sm">{user.name}</h3>
-          <p className="text-base-300 text-xs">{user.headline}</p>
-        </div>
-      </Link>
-      {renderButton()}
+  <Link to={`/profile/${user.username}`} className="flex items-center flex-grow min-w-0">
+    <LazyLoadImage
+      src={user.profilePicture || "/avatar.png"}
+      alt={user.name}
+      className="w-12 h-12 object-cover rounded-full mr-3 flex-shrink-0"
+    />
+    <div className="min-w-0">
+      <h3 className="text-base-200 font-semibold text-sm truncate overflow-hidden whitespace-nowrap">
+        {user.name}
+      </h3>
+      <p className="text-base-300 text-xs truncate overflow-hidden whitespace-nowrap">
+        {user.headline}
+      </p>
     </div>
+  </Link>
+  {renderButton()}
+</div>
+
   );
 };
 

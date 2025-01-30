@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Loader, User, Lock, Eye, EyeOff } from "lucide-react";
 import Input from "../Input";
 import { useAuthStore } from "../../store/useAuthStore";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -24,8 +25,9 @@ const LoginForm = () => {
     try {
       await login(username, password);
       navigate("/");
-    } catch (error) {
+    } catch {
       console.error(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -67,7 +69,6 @@ const LoginForm = () => {
           Forgot password?
         </Link>
       </div>
-      {error && <p className='text-red-500 font-semibold mb-2'>{error}</p>}
 
       <motion.button
         className="mt-5 w-full py-3 px-4 bg-primary/55 

@@ -17,7 +17,7 @@ const SignupForm = () => {
   
 
   const navigate = useNavigate();
-  const { signup, isLoading } = useAuthStore();
+  const { signup, error, isLoading } = useAuthStore();
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -28,11 +28,13 @@ const SignupForm = () => {
     e.preventDefault();
     try {
       await signup(name, username, email, password);
+      toast.success("Account created successfully");
       navigate("/verify-email");
        
 
-    } catch (error) {
+    } catch {
       console.error(error);
+      toast.error(error.response.data.message);
     }
   };
 

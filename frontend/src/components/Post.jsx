@@ -126,24 +126,30 @@ const Post = ({ post }) => {
 
 		{/* Actions */}
 		<div className="flex justify-between text-base-content/80 font-bold">
-			<PostAction
-				icon={
-					<ThumbsUp
-						size={18}
-						className={isLiked ? "text-blue-500 fill-blue-300" : "hover:text-blue-400"}
-					/>
-				}
-				text={`Like (${post.likes.length})`}
-				onClick={handleLikePost}
+	<PostAction
+		icon={
+			<ThumbsUp
+				size={18}
+				className={isLiked ? "text-blue-500 fill-blue-300" : "hover:text-blue-400"}
 			/>
-			<PostAction
-				icon={<MessageCircle size={18} className="hover:text-gray-300" />}
-				text={`Comment (${comments.length})`}
-				onClick={() => setShowComments(!showComments)}
-			/>
-			<PostAction icon={<Share2 size={18} className="hover:text-gray-300" />} text="Share" />
-			{/* todo: send post link to friends or connections */}
-		</div>
+		}
+		text="Like"
+		count={`(${post.likes.length})`}
+		onClick={handleLikePost}
+	/>
+	<PostAction
+		icon={<MessageCircle size={18} className="hover:text-gray-300" />}
+		text="Comment"
+		count={`(${comments.length})`}
+		onClick={() => setShowComments(!showComments)}
+	/>
+	<PostAction 
+		icon={<Share2 size={18} className="hover:text-gray-300" />} 
+		text="Share" 
+		count="" // No count needed for "Share"
+	/>
+</div>
+
 	</div>
 
 	{/* Comments Section */}

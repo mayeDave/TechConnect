@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "../store/useAuthStore";
+import ReactMarkdown from "react-markdown";
 
 const AiPage = () => {
-
   const { authUser } = useAuthStore();
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState([]);
@@ -51,21 +51,32 @@ const AiPage = () => {
       <div className="w-full max-w-3xl p-4 border rounded-md bg-base-200 space-y-4 flex-1 overflow-hidden">
         {/* Chat container with fixed height and scrollable messages */}
         <div className="h-[calc(70vh-100px)] overflow-y-auto space-y-4">
-          {loading && <p className="text-sm text-center">Generating response...</p>}
+          {loading && (
+            <p className="text-sm text-center">Generating response...</p>
+          )}
           {error && <p className="text-sm text-center text-error">{error}</p>}
 
           {/* Map through the responses and render each chat bubble */}
           {response.length === 0 && !loading && !error && (
             <>
-            <h1 className="text-lg font-bold text-center">Hello, I am Maye, your AI assistant. I'm here to help with all things tech—whether you're looking for coding advice, debugging tips, or tech trends. Ask me anything, and let’s explore the digital world together!</h1>
-            <p className="text-sm text-center text-gray-500">Responses will appear here.</p>
+              <h1 className="text-lg font-bold text-center">
+                Hello, I am Maye, your AI assistant. I'm here to help with all
+                things tech—whether you're looking for coding advice, debugging
+                tips, or tech trends. Ask me anything, and let’s explore the
+                digital world together!
+              </h1>
+              <p className="text-sm text-center text-gray-500">
+                Responses will appear here.
+              </p>
             </>
           )}
 
           {response.map((message, index) => (
             <div
               key={index}
-              className={`chat ${message.type === "user" ? "chat-start" : "chat-end"}`}
+              className={`chat ${
+                message.type === "user" ? "chat-start" : "chat-end"
+              }`}
             >
               <div className="chat-image avatar">
                 <div className="w-10 rounded-full">
@@ -79,7 +90,9 @@ const AiPage = () => {
                   />
                 </div>
               </div>
-              <div className="chat-bubble">{message.text}</div>
+              <div className="chat-bubble">
+                <ReactMarkdown>{message.text}</ReactMarkdown>
+              </div>
             </div>
           ))}
         </div>

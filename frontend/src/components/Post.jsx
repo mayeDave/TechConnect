@@ -100,20 +100,20 @@ const Post = ({ post }) => {
 			)}
 		</div>
 
-		 {/* Post Content with "See More" */}
-		 <p className="mb-4">
-        {isExpanded || post.content.length <= maxLength
-          ? post.content
-          : `${post.content.slice(0, maxLength)}...`}
-        {post.content.length > maxLength && (
-          <button
-            onClick={toggleExpand}
-            className="text-blue-500 font-bold ml-1 hover:underline"
-          >
-            {isExpanded ? "See Less" : "See More"}
-          </button>
-        )}
-      </p>
+		<p className="mb-4 whitespace-pre-line">
+  {isExpanded || post.content.length <= maxLength
+    ? post.content
+    : `${post.content.slice(0, maxLength)}...`}
+  {post.content.length > maxLength && (
+    <button
+      onClick={toggleExpand}
+      className="text-blue-500 font-bold ml-1 hover:underline"
+    >
+      {isExpanded ? "See Less" : "See More"}
+    </button>
+  )}
+</p>
+
 
       {/* Post Image (if available) */}
       {post.image && (

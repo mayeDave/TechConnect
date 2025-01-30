@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function UserCard({ user, isConnection }) {
 	return (
  
-		<div className='bg-white rounded-lg shadow p-4 flex flex-col items-center transition-all hover:shadow-md'>
+		<div className='bg-white rounded-lg shadow p-4 flex flex-col flex-grow min-w-0 items-center transition-all hover:shadow-md'>
 			<Link to={`/profile/${user.username}`} className='flex flex-col text-slate-600 items-center'>
 				<LazyLoadImage
 					src={user.profilePicture || "/avatar.png"}

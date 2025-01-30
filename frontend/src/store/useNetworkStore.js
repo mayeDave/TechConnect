@@ -72,7 +72,7 @@ const useNetworkStore = create((set, get) => ({
       set((state) => ({
         connectionStatuses: { ...state.connectionStatuses, [userId]: data },
       }));
-      console.log(`Fetched status for ${userId}:`, data);
+      
       return data;
     } catch (error) {
       console.error("Failed to fetch connection status:", error);

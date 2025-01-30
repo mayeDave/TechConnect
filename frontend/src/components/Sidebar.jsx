@@ -28,7 +28,7 @@ export default function Sidebar({ user }) {
 				<Link to={`/profile/${user.username}`} className="hover:underline">
 					<h2 className="text-xl hover:text-base-content font-bold">{user.name}</h2>
 				</Link>
-				<p className="text-sm ">{user.headline || "No headline available"}</p>
+				<p className="text-sm mb-2 ">{user.headline || "No headline available"}</p>
 				<p className="text-xs ">{user.connections?.length || 0} connections</p>
 			</div>
 

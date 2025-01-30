@@ -22,6 +22,12 @@ const Post = ({ post }) => {
     const isLiked = post.likes.includes(authUser?._id);
 
 
+	const [isExpanded, setIsExpanded] = useState(false);
+  const maxLength = 150; // Adjust this based on how much text you want to show initially
+
+  const toggleExpand = () => setIsExpanded(!isExpanded);
+
+
 	const handleDeletePost = () => {
         if (window.confirm("Are you sure you want to delete this post?")) {
             deletePost(post._id);
@@ -59,13 +65,7 @@ const Post = ({ post }) => {
 		<div className="flex items-center justify-between mb-4">
 			{/* Author Info */}
 			<div className="flex items-center">
-				{/* <Link to={`/profile/${post?.author?.username}`}>
-					<LazyLoadImage
-						src={post?.author?.profilePicture || "/avatar.png"}
-						alt={post?.author?.name}
-						className="w-10 h-10 rounded-full shadow-md mr-3"
-					/>
-				</Link> */}
+				
 			<Link to={`/profile/${post?.author?.username}`} className="relative mr-3">
               <LazyLoadImage
                 src={post?.author?.profilePicture || "/avatar.png"}
@@ -100,15 +100,29 @@ const Post = ({ post }) => {
 			)}
 		</div>
 
-		{/* Post Content */}
-		<p className="mb-4">{post.content}</p>
-		{post.image && (
-			<LazyLoadImage
-				src={post.image}
-				alt="Post content"
-				className="rounded-lg w-full mb-4 shadow-lg"
-			/>
-		)}
+		 {/* Post Content with "See More" */}
+		 <p className="mb-4">
+        {isExpanded || post.content.length <= maxLength
+          ? post.content
+          : `${post.content.slice(0, maxLength)}...`}
+        {post.content.length > maxLength && (
+          <button
+            onClick={toggleExpand}
+            className="text-blue-500 font-bold ml-1 hover:underline"
+          >
+            {isExpanded ? "See Less" : "See More"}
+          </button>
+        )}
+      </p>
+
+      {/* Post Image (if available) */}
+      {post.image && (
+        <LazyLoadImage
+          src={post.image}
+          alt="Post content"
+          className="rounded-lg w-full mb-4 shadow-lg"
+		/>
+	  )}
 
 		{/* Actions */}
 		<div className="flex justify-between text-base-content/80 font-bold">

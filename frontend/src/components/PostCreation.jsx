@@ -55,7 +55,7 @@ const PostCreation = ({ user }) => {
             <LazyLoadImage
                 src={user.profilePicture || "/avatar.png"}
                 alt={user.name}
-                className="w-12 h-12 rounded-full shadow-md"
+                className="w-12 h-12 object-cover rounded-full shadow-md"
             />
             <textarea
                 placeholder="What's on your mind?"

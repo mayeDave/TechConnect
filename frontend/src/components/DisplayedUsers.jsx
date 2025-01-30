@@ -101,7 +101,7 @@ const DisplayedUsers = ({ user }) => {
         <LazyLoadImage
           src={user.profilePicture || "/avatar.png"}
           alt={user.name}
-          className="w-12 h-12 rounded-full mr-3"
+          className="w-12 h-12 object-cover rounded-full mr-3"
         />
         <div>
           <h3 className="text-base-200 font-semibold text-sm">{user.name}</h3>

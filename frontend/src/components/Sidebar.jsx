@@ -18,7 +18,7 @@ export default function Sidebar({ user }) {
 					<LazyLoadImage
 						src={user.profilePicture || "/avatar.png"}
 						alt={user.name}
-						className="w-24 h-24 rounded-full border-4 border-white shadow-md absolute left-1/2 transform -translate-x-1/2 top-10"
+						className="w-24 h-24 object-cover rounded-full border-4 border-white shadow-md absolute left-1/2 transform -translate-x-1/2 top-10"
 					/>
 				</Link>
 			</div>
